@@ -12,6 +12,7 @@
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
+  cursor: none;
 }
 
 .hero-bg-canvas {
@@ -34,6 +35,7 @@
 }
 
 .header-pill {
+  cursor: default;
   background: var(--badge-bg, #0d0d0d);
   border-radius: 14px;
   padding: 8px 10px 8px 20px;
