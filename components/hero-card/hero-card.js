@@ -19,14 +19,14 @@ class HeroCard extends HTMLElement {
       </section>
     `;
 
-    this.initWarpGrid();
+    this.initDotMatrixLens();
   }
 
   disconnectedCallback() {
     if (this.cleanup) this.cleanup();
   }
 
-  initWarpGrid() {
+  initDotMatrixLens() {
     const card = this.querySelector(".hero-card");
     const canvas = this.querySelector(".hero-bg-canvas");
     const ctx = canvas.getContext("2d");
@@ -78,86 +78,58 @@ class HeroCard extends HTMLElement {
     card.addEventListener("pointermove", onPointerMove);
     card.addEventListener("pointerleave", onPointerLeave);
 
-    const GRID_STEP = 42;
-    const SAMPLE_STEP = 20;
-    const RADIUS = 300;
+    const STEP = 28;
+    const RADIUS = 190;
     const RADIUS_SQ = RADIUS * RADIUS;
-    const MAX_PULL = 78;
-
-    const warpPoint = (x, y) => {
-      const dx = x - curX;
-      const dy = y - curY;
-
-      if (dx > RADIUS || dx < -RADIUS || dy > RADIUS || dy < -RADIUS) {
-        return [x, y];
-      }
-
-      const d2 = dx * dx + dy * dy;
-      if (d2 >= RADIUS_SQ || d2 === 0) return [x, y];
-
-      const d = Math.sqrt(d2);
-      const t = 1 - d / RADIUS;
-      const pull = t * t * (3 - 2 * t) * MAX_PULL;
-
-      return [x - (dx / d) * pull, y - (dy / d) * pull];
-    };
 
     const render = () => {
-      curX += (targetX - curX) * 0.32;
-      curY += (targetY - curY) * 0.32;
+      curX += (targetX - curX) * 0.24;
+      curY += (targetY - curY) * 0.24;
 
       ctx.clearRect(0, 0, width, height);
 
-      ctx.strokeStyle = "rgba(15, 23, 42, 0.08)";
+      for (let x = STEP * 0.5; x < width; x += STEP) {
+        for (let y = STEP * 0.5; y < height; y += STEP) {
+          const dx = x - curX;
+          const dy = y - curY;
+          const d2 = dx * dx + dy * dy;
+
+          let px = x;
+          let py = y;
+          let size = 1.1;
+          let color = "rgba(15, 23, 42, 0.1)";
+
+          if (d2 < RADIUS_SQ) {
+            const d = Math.sqrt(d2);
+            const pull = Math.exp(-d2 / (2 * 58 * 58)) * 0.58;
+            px = curX + dx * (1 - pull);
+            py = curY + dy * (1 - pull);
+
+            const proximity = 1 - d / RADIUS;
+            size = 1.1 + proximity * 0.9;
+            const alpha = 0.1 + proximity * 0.42;
+
+            color = proximity > 0.45
+              ? `rgba(59, 130, 246, ${alpha})`
+              : `rgba(15, 23, 42, ${alpha})`;
+          }
+
+          ctx.fillStyle = color;
+          ctx.beginPath();
+          ctx.arc(px, py, size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.35)";
       ctx.lineWidth = 1;
-
-      for (let y = GRID_STEP; y < height; y += GRID_STEP) {
-        ctx.beginPath();
-        let first = true;
-        for (let x = 0; x <= width + SAMPLE_STEP; x += SAMPLE_STEP) {
-          const [wx, wy] = warpPoint(Math.min(x, width), y);
-          if (first) {
-            ctx.moveTo(wx, wy);
-            first = false;
-          } else {
-            ctx.lineTo(wx, wy);
-          }
-        }
-        ctx.stroke();
-      }
-
-      for (let x = GRID_STEP; x < width; x += GRID_STEP) {
-        ctx.beginPath();
-        let first = true;
-        for (let y = 0; y <= height + SAMPLE_STEP; y += SAMPLE_STEP) {
-          const [wx, wy] = warpPoint(x, Math.min(y, height));
-          if (first) {
-            ctx.moveTo(wx, wy);
-            first = false;
-          } else {
-            ctx.lineTo(wx, wy);
-          }
-        }
-        ctx.stroke();
-      }
-
-      const aura = ctx.createRadialGradient(curX, curY, 8, curX, curY, 40);
-      aura.addColorStop(0, "rgba(59, 130, 246, 0.28)");
-      aura.addColorStop(1, "rgba(59, 130, 246, 0)");
-      ctx.fillStyle = aura;
       ctx.beginPath();
-      ctx.arc(curX, curY, 40, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.75)";
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      ctx.arc(curX, curY, 13, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 9, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.fillStyle = "#09090b";
       ctx.beginPath();
-      ctx.arc(curX, curY, 8, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 3, 0, Math.PI * 2);
       ctx.fill();
 
       rafId = requestAnimationFrame(render);
