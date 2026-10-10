@@ -19,14 +19,14 @@ class HeroCard extends HTMLElement {
       </section>
     `;
 
-    this.initBlackHole();
+    this.initWarpGrid();
   }
 
   disconnectedCallback() {
     if (this.cleanup) this.cleanup();
   }
 
-  initBlackHole() {
+  initWarpGrid() {
     const card = this.querySelector(".hero-card");
     const canvas = this.querySelector(".hero-bg-canvas");
     const ctx = canvas.getContext("2d");
@@ -78,16 +78,21 @@ class HeroCard extends HTMLElement {
     card.addEventListener("pointermove", onPointerMove);
     card.addEventListener("pointerleave", onPointerLeave);
 
-    const PARTICLE_COUNT = 90;
-    const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      vx: (Math.random() - 0.5) * 0.8,
-      vy: (Math.random() - 0.5) * 0.8,
-      size: Math.random() * 1.8 + 0.8,
-      alpha: Math.random() * 0.45 + 0.15,
-      tint: Math.random() > 0.4 ? "59, 130, 246" : "15, 23, 42"
-    }));
+    const GRID_STEP = 36;
+    const SAMPLE_STEP = 18;
+    const INFLUENCE_RADIUS_SQ = 240 * 240;
+
+    const warpPoint = (x, y) => {
+      const dx = x - curX;
+      const dy = y - curY;
+      const d2 = dx * dx + dy * dy;
+      if (d2 < INFLUENCE_RADIUS_SQ) {
+        const pull = Math.exp(-d2 / (2 * 75 * 75)) * 36;
+        const d = Math.sqrt(d2) || 1;
+        return [x - (dx / d) * pull, y - (dy / d) * pull];
+      }
+      return [x, y];
+    };
 
     const render = () => {
       curX += (targetX - curX) * 0.08;
@@ -95,79 +100,56 @@ class HeroCard extends HTMLElement {
 
       ctx.clearRect(0, 0, width, height);
 
-      const gridSpacing = 42;
-      ctx.fillStyle = "rgba(0, 0, 0, 0.06)";
-      for (let gx = gridSpacing * 0.5; gx < width; gx += gridSpacing) {
-        for (let gy = gridSpacing * 0.5; gy < height; gy += gridSpacing) {
-          const dx = gx - curX;
-          const dy = gy - curY;
-          const distSq = dx * dx + dy * dy;
-          const dist = Math.sqrt(distSq);
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.07)";
+      ctx.lineWidth = 1;
 
-          if (dist < 22) continue;
-
-          const warp = Math.min(18, 480 / (dist + 24));
-          const px = gx - (dx / dist) * warp;
-          const py = gy - (dy / dist) * warp;
-
-          ctx.beginPath();
-          ctx.arc(px, py, 1.1, 0, Math.PI * 2);
-          ctx.fill();
-        }
-      }
-
-      const horizon = 24;
-      for (let i = 0; i < particles.length; i++) {
-        const p = particles[i];
-        const dx = curX - p.x;
-        const dy = curY - p.y;
-        const distSq = dx * dx + dy * dy;
-        const dist = Math.sqrt(distSq);
-
-        if (dist < horizon) {
-          p.x = Math.random() < 0.5 ? (Math.random() < 0.5 ? -10 : width + 10) : Math.random() * width;
-          p.y = Math.random() < 0.5 ? (Math.random() < 0.5 ? -10 : height + 10) : Math.random() * height;
-          p.vx = (Math.random() - 0.5) * 0.8;
-          p.vy = (Math.random() - 0.5) * 0.8;
-          continue;
-        }
-
-        const force = Math.min(2.4, 260 / (distSq + 240));
-        const swirl = Math.min(1.8, 140 / (dist + 30));
-
-        p.vx += (dx / dist) * force - (dy / dist) * swirl * 0.35;
-        p.vy += (dy / dist) * force + (dx / dist) * swirl * 0.35;
-        p.vx *= 0.94;
-        p.vy *= 0.94;
-
-        p.x += p.vx;
-        p.y += p.vy;
-
-        ctx.fillStyle = `rgba(${p.tint}, ${p.alpha})`;
+      for (let y = GRID_STEP; y < height; y += GRID_STEP) {
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
+        let first = true;
+        for (let x = 0; x <= width + SAMPLE_STEP; x += SAMPLE_STEP) {
+          const [wx, wy] = warpPoint(Math.min(x, width), y);
+          if (first) {
+            ctx.moveTo(wx, wy);
+            first = false;
+          } else {
+            ctx.lineTo(wx, wy);
+          }
+        }
+        ctx.stroke();
       }
 
-      const halo = ctx.createRadialGradient(curX, curY, horizon * 0.7, curX, curY, horizon * 2.8);
-      halo.addColorStop(0, "rgba(59, 130, 246, 0.45)");
-      halo.addColorStop(0.35, "rgba(59, 130, 246, 0.18)");
-      halo.addColorStop(1, "rgba(59, 130, 246, 0)");
+      for (let x = GRID_STEP; x < width; x += GRID_STEP) {
+        ctx.beginPath();
+        let first = true;
+        for (let y = 0; y <= height + SAMPLE_STEP; y += SAMPLE_STEP) {
+          const [wx, wy] = warpPoint(x, Math.min(y, height));
+          if (first) {
+            ctx.moveTo(wx, wy);
+            first = false;
+          } else {
+            ctx.lineTo(wx, wy);
+          }
+        }
+        ctx.stroke();
+      }
 
-      ctx.fillStyle = halo;
+      const aura = ctx.createRadialGradient(curX, curY, 6, curX, curY, 28);
+      aura.addColorStop(0, "rgba(59, 130, 246, 0.2)");
+      aura.addColorStop(1, "rgba(59, 130, 246, 0)");
+      ctx.fillStyle = aura;
       ctx.beginPath();
-      ctx.arc(curX, curY, horizon * 2.8, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 28, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.75)";
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.65)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(curX, curY, horizon * 1.08, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 11, 0, Math.PI * 2);
       ctx.stroke();
 
-      ctx.fillStyle = "#000000";
+      ctx.fillStyle = "#09090b";
       ctx.beginPath();
-      ctx.arc(curX, curY, horizon, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 7, 0, Math.PI * 2);
       ctx.fill();
 
       rafId = requestAnimationFrame(render);
