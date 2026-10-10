@@ -110,6 +110,8 @@ class HeroCard extends HTMLElement {
             alpha = 0.08 + proximity * 0.72;
           }
 
+          if (Math.hypot(px - curX, py - curY) < 14) continue;
+
           ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
           ctx.beginPath();
           ctx.arc(px, py, size, 0, Math.PI * 2);
@@ -120,7 +122,7 @@ class HeroCard extends HTMLElement {
       ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.arc(curX, curY, 8, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 14, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.fillStyle = "#000000";
