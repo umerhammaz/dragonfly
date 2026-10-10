@@ -79,7 +79,7 @@ export function initDotLens(canvas, container) {
     curX = targetX;
     curY = targetY;
 
-    const time = performance.now() * 0.0022;
+    const time = performance.now() * 0.0066;
     const breath = Math.sin(time);
     const pullFactor = 0.82 + breath * 0.05;
 
