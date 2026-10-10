@@ -43,7 +43,7 @@ class HeroCard extends HTMLElement {
     let hasPointer = false;
 
     const resize = () => {
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = card.clientWidth;
       height = card.clientHeight;
       canvas.width = Math.floor(width * dpr);
@@ -78,29 +78,37 @@ class HeroCard extends HTMLElement {
     card.addEventListener("pointermove", onPointerMove);
     card.addEventListener("pointerleave", onPointerLeave);
 
-    const GRID_STEP = 36;
-    const SAMPLE_STEP = 18;
-    const INFLUENCE_RADIUS_SQ = 240 * 240;
+    const GRID_STEP = 42;
+    const SAMPLE_STEP = 20;
+    const RADIUS = 300;
+    const RADIUS_SQ = RADIUS * RADIUS;
+    const MAX_PULL = 78;
 
     const warpPoint = (x, y) => {
       const dx = x - curX;
       const dy = y - curY;
-      const d2 = dx * dx + dy * dy;
-      if (d2 < INFLUENCE_RADIUS_SQ) {
-        const pull = Math.exp(-d2 / (2 * 75 * 75)) * 36;
-        const d = Math.sqrt(d2) || 1;
-        return [x - (dx / d) * pull, y - (dy / d) * pull];
+
+      if (dx > RADIUS || dx < -RADIUS || dy > RADIUS || dy < -RADIUS) {
+        return [x, y];
       }
-      return [x, y];
+
+      const d2 = dx * dx + dy * dy;
+      if (d2 >= RADIUS_SQ || d2 === 0) return [x, y];
+
+      const d = Math.sqrt(d2);
+      const t = 1 - d / RADIUS;
+      const pull = t * t * (3 - 2 * t) * MAX_PULL;
+
+      return [x - (dx / d) * pull, y - (dy / d) * pull];
     };
 
     const render = () => {
-      curX += (targetX - curX) * 0.08;
-      curY += (targetY - curY) * 0.08;
+      curX += (targetX - curX) * 0.32;
+      curY += (targetY - curY) * 0.32;
 
       ctx.clearRect(0, 0, width, height);
 
-      ctx.strokeStyle = "rgba(15, 23, 42, 0.07)";
+      ctx.strokeStyle = "rgba(15, 23, 42, 0.08)";
       ctx.lineWidth = 1;
 
       for (let y = GRID_STEP; y < height; y += GRID_STEP) {
@@ -133,23 +141,23 @@ class HeroCard extends HTMLElement {
         ctx.stroke();
       }
 
-      const aura = ctx.createRadialGradient(curX, curY, 6, curX, curY, 28);
-      aura.addColorStop(0, "rgba(59, 130, 246, 0.2)");
+      const aura = ctx.createRadialGradient(curX, curY, 8, curX, curY, 40);
+      aura.addColorStop(0, "rgba(59, 130, 246, 0.28)");
       aura.addColorStop(1, "rgba(59, 130, 246, 0)");
       ctx.fillStyle = aura;
       ctx.beginPath();
-      ctx.arc(curX, curY, 28, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 40, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.65)";
+      ctx.strokeStyle = "rgba(59, 130, 246, 0.75)";
       ctx.lineWidth = 1.5;
       ctx.beginPath();
-      ctx.arc(curX, curY, 11, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 13, 0, Math.PI * 2);
       ctx.stroke();
 
       ctx.fillStyle = "#09090b";
       ctx.beginPath();
-      ctx.arc(curX, curY, 7, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 8, 0, Math.PI * 2);
       ctx.fill();
 
       rafId = requestAnimationFrame(render);
