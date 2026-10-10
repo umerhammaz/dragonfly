@@ -46,7 +46,7 @@
   border: none;
   border-radius: 10px;
   padding: 10px 22px;
-  font-family: var(--font-editorial, serif);
+  font-family: var(--font-geist, sans-serif);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -78,7 +78,7 @@
 }
 
 .subtitle {
-  font-family: var(--font-editorial, serif);
+  font-family: var(--font-geist, sans-serif);
   font-size: clamp(28px, 4.4vw, 78px);
   font-weight: 400;
   color: var(--text-muted, #7c878e);
@@ -89,7 +89,7 @@
 }
 
 .title {
-  font-family: var(--font-editorial, serif);
+  font-family: var(--font-geist, sans-serif);
   font-size: clamp(64px, 11.8vw, 210px);
   font-weight: 700;
   color: var(--text-main, #000000);
