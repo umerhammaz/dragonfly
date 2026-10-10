@@ -14,51 +14,11 @@
   overflow: hidden;
 }
 
-.hero-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+app-header {
+  position: relative;
+  z-index: 2;
   width: 100%;
-  padding-top: 8px;
-}
-
-.header-pill {
-  background: var(--badge-bg, #0d0d0d);
-  border-radius: 14px;
-  padding: 8px 10px 8px 20px;
-  display: inline-flex;
-  align-items: center;
-  gap: 18px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
-  min-height: 56px;
-  box-sizing: border-box;
-}
-
-.pill-logo {
-  height: 28px;
-  width: auto;
-  display: block;
-}
-
-.pill-btn {
-  background: #ffffff;
-  color: #000000;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 22px;
-  font-family: var(--font-geist, sans-serif);
-  font-size: 16px;
-  font-weight: 700;
-  cursor: pointer;
-  text-decoration: none;
-  white-space: nowrap;
-  line-height: 1;
-  transition: transform 0.15s ease, opacity 0.15s ease;
-}
-
-.pill-btn:hover {
-  opacity: 0.92;
-  transform: scale(0.99);
+  pointer-events: none;
 }
 
 .hero-body {
@@ -66,6 +26,9 @@
   width: 100%;
   align-items: flex-end;
   padding-bottom: 8px;
+  position: relative;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .typography-group {
@@ -104,22 +67,6 @@
   .hero-card {
     min-height: calc(100dvh - 24px);
     padding: 20px 20px 20px 20px;
-  }
-
-  .header-pill {
-    padding: 6px 8px 6px 16px;
-    gap: 14px;
-    min-height: 48px;
-  }
-
-  .pill-logo {
-    height: 22px;
-  }
-
-  .pill-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-    border-radius: 8px;
   }
 
   .title {
