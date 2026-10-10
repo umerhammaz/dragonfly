@@ -1,11 +1,10 @@
 .hero-card {
   width: 100%;
-  max-width: 920px;
-  aspect-ratio: 16 / 10;
+  height: 100%;
+  min-height: calc(100dvh - 32px);
   background: var(--bg-canvas, #ffffff);
   border: 1.5px solid var(--border-card, #3b82f6);
-  border-radius: 6px;
-  position: relative;
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -14,10 +13,14 @@
 }
 
 .hero-header {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
   width: 100%;
+}
+
+.header-spacer {
+  display: block;
 }
 
 .badge {
@@ -37,35 +40,9 @@
   display: block;
 }
 
-.hero-body {
+.header-action {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.typography-group {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.subtitle {
-  font-family: var(--font-geist, sans-serif);
-  font-size: clamp(24px, 4vw, 42px);
-  font-weight: 400;
-  color: var(--text-muted, #888888);
-  letter-spacing: -0.02em;
-  line-height: 1.1;
-}
-
-.title {
-  font-family: var(--font-geist, sans-serif);
-  font-size: clamp(44px, 7vw, 76px);
-  font-weight: 700;
-  color: var(--text-main, #000000);
-  letter-spacing: -0.04em;
-  line-height: 0.95;
+  justify-content: flex-end;
 }
 
 .cta-btn {
@@ -73,9 +50,9 @@
   color: #000000;
   border: 1px solid var(--btn-border, #e5e7eb);
   border-radius: 8px;
-  padding: 12px 24px;
+  padding: 10px 20px;
   font-family: var(--font-geist, sans-serif);
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   text-decoration: none;
@@ -87,4 +64,68 @@
 .cta-btn:hover {
   background: #f9fafb;
   border-color: #d1d5db;
+}
+
+.hero-body {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.typography-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.subtitle {
+  font-family: var(--font-geist, sans-serif);
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 400;
+  color: var(--text-muted, #888888);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.title {
+  font-family: var(--font-geist, sans-serif);
+  font-size: clamp(48px, 8.5vw, 110px);
+  font-weight: 700;
+  color: var(--text-main, #000000);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+@media (max-width: 640px) {
+  body {
+    padding: 12px;
+  }
+
+  .hero-card {
+    min-height: calc(100dvh - 24px);
+    padding: 16px 16px 24px;
+  }
+
+  .hero-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .header-spacer {
+    display: none;
+  }
+
+  .badge {
+    padding: 4px 12px;
+    min-height: 32px;
+  }
+
+  .badge-logo {
+    height: 18px;
+  }
+
+  .cta-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
 }
