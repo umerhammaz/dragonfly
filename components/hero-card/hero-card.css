@@ -107,7 +107,7 @@
   font-family: var(--font-geist, sans-serif);
   font-size: clamp(64px, 11.8vw, 210px);
   font-weight: 700;
-  background: linear-gradient(312deg, #fff, #d8d8d8 30%, #959595, #424242);
+  background: linear-gradient(312deg, #fff, #d8d8d8 10%, #1b1b1b, #000000);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
