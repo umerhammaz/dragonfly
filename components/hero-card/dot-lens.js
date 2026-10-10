@@ -76,11 +76,8 @@ export function initDotLens(canvas, container) {
   container.addEventListener("pointerleave", onPointerLeave);
 
   const render = () => {
-    const dxTrack = targetX - curX;
-    const dyTrack = targetY - curY;
-
-    curX += dxTrack * 0.28;
-    curY += dyTrack * 0.28;
+    curX = targetX;
+    curY = targetY;
 
     ctx.clearRect(0, 0, width, height);
 
@@ -115,14 +112,20 @@ export function initDotLens(canvas, container) {
       const px = curX + dx * (1 - pull);
       const py = curY + dy * (1 - pull);
 
-      if (Math.hypot(px - curX, py - curY) < EXCLUSION_RADIUS) continue;
+      const distToCenter = Math.hypot(px - curX, py - curY);
+      if (distToCenter <= 9) continue;
+
+      let fade = 1;
+      if (distToCenter < 24) {
+        fade = (distToCenter - 9) / 15;
+      }
 
       const proximity = 1 - d / RADIUS;
       perturbed.push({
         x: px,
         y: py,
-        size: 1.1 + proximity * 1.5,
-        alpha: 0.08 + proximity * 0.72
+        size: (1.1 + proximity * 1.5) * fade,
+        alpha: (0.08 + proximity * 0.72) * fade
       });
     }
 
@@ -137,23 +140,13 @@ export function initDotLens(canvas, container) {
       ctx.fill();
     }
 
-    ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(curX, curY, EXCLUSION_RADIUS, 0, Math.PI * 2);
-    ctx.stroke();
 
     ctx.fillStyle = "#000000";
     ctx.beginPath();
     ctx.arc(curX, curY, 7, 0, Math.PI * 2);
     ctx.fill();
 
-    if (Math.abs(dxTrack) < 0.1 && Math.abs(dyTrack) < 0.1) {
-      running = false;
-      return;
-    }
-
-    rafId = requestAnimationFrame(render);
+    running = false;
   };
 
   resize();
