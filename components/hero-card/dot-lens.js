@@ -145,7 +145,7 @@ export function initDotLens(canvas, container) {
 
     ctx.fillStyle = "#000000";
     ctx.beginPath();
-    ctx.arc(curX, curY, 3, 0, Math.PI * 2);
+    ctx.arc(curX, curY, 7, 0, Math.PI * 2);
     ctx.fill();
 
     if (Math.abs(dxTrack) < 0.1 && Math.abs(dyTrack) < 0.1) {
