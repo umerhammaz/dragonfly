@@ -105,7 +105,11 @@
   font-family: var(--font-geist, sans-serif);
   font-size: clamp(64px, 11.8vw, 210px);
   font-weight: 700;
-  color: var(--text-main, #000000);
+  background: linear-gradient(312deg, #fff, #d8d8d8 30%, #959595, #424242);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
   letter-spacing: -0.03em;
   line-height: 0.88;
   margin: 0;

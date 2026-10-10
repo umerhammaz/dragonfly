@@ -78,13 +78,13 @@ class HeroCard extends HTMLElement {
     card.addEventListener("pointermove", onPointerMove);
     card.addEventListener("pointerleave", onPointerLeave);
 
-    const STEP = 28;
-    const RADIUS = 190;
+    const STEP = 26;
+    const RADIUS = 230;
     const RADIUS_SQ = RADIUS * RADIUS;
 
     const render = () => {
-      curX += (targetX - curX) * 0.24;
-      curY += (targetY - curY) * 0.24;
+      curX += (targetX - curX) * 0.28;
+      curY += (targetY - curY) * 0.28;
 
       ctx.clearRect(0, 0, width, height);
 
@@ -97,37 +97,33 @@ class HeroCard extends HTMLElement {
           let px = x;
           let py = y;
           let size = 1.1;
-          let color = "rgba(15, 23, 42, 0.1)";
+          let alpha = 0.08;
 
           if (d2 < RADIUS_SQ) {
             const d = Math.sqrt(d2);
-            const pull = Math.exp(-d2 / (2 * 58 * 58)) * 0.58;
+            const pull = Math.exp(-d2 / (2 * 72 * 72)) * 0.82;
             px = curX + dx * (1 - pull);
             py = curY + dy * (1 - pull);
 
             const proximity = 1 - d / RADIUS;
-            size = 1.1 + proximity * 0.9;
-            const alpha = 0.1 + proximity * 0.42;
-
-            color = proximity > 0.45
-              ? `rgba(59, 130, 246, ${alpha})`
-              : `rgba(15, 23, 42, ${alpha})`;
+            size = 1.1 + proximity * 1.5;
+            alpha = 0.08 + proximity * 0.72;
           }
 
-          ctx.fillStyle = color;
+          ctx.fillStyle = `rgba(0, 0, 0, ${alpha})`;
           ctx.beginPath();
           ctx.arc(px, py, size, 0, Math.PI * 2);
           ctx.fill();
         }
       }
 
-      ctx.strokeStyle = "rgba(59, 130, 246, 0.35)";
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.25)";
       ctx.lineWidth = 1;
       ctx.beginPath();
-      ctx.arc(curX, curY, 9, 0, Math.PI * 2);
+      ctx.arc(curX, curY, 8, 0, Math.PI * 2);
       ctx.stroke();
 
-      ctx.fillStyle = "#09090b";
+      ctx.fillStyle = "#000000";
       ctx.beginPath();
       ctx.arc(curX, curY, 3, 0, Math.PI * 2);
       ctx.fill();
