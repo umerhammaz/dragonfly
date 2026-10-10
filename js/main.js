@@ -1,0 +1,1 @@
+import "../components/hero-card/hero-card.js";

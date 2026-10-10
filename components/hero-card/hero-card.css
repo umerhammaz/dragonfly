@@ -1,0 +1,90 @@
+.hero-card {
+  width: 100%;
+  max-width: 920px;
+  aspect-ratio: 16 / 10;
+  background: var(--bg-canvas, #ffffff);
+  border: 1.5px solid var(--border-card, #3b82f6);
+  border-radius: 6px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 24px 32px 36px;
+  box-sizing: border-box;
+}
+
+.hero-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.badge {
+  background: var(--badge-bg, #111111);
+  color: #ffffff;
+  border-radius: 6px;
+  padding: 6px 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+}
+
+.badge-logo {
+  height: 22px;
+  width: auto;
+  display: block;
+}
+
+.hero-body {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.typography-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.subtitle {
+  font-family: var(--font-geist, sans-serif);
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 400;
+  color: var(--text-muted, #888888);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.title {
+  font-family: var(--font-geist, sans-serif);
+  font-size: clamp(44px, 7vw, 76px);
+  font-weight: 700;
+  color: var(--text-main, #000000);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+
+.cta-btn {
+  background: #ffffff;
+  color: #000000;
+  border: 1px solid var(--btn-border, #e5e7eb);
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-family: var(--font-geist, sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  transition: background 0.15s ease, border-color 0.15s ease;
+  white-space: nowrap;
+}
+
+.cta-btn:hover {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
