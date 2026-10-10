@@ -79,6 +79,10 @@ export function initDotLens(canvas, container) {
     curX = targetX;
     curY = targetY;
 
+    const time = performance.now() * 0.0022;
+    const breath = Math.sin(time);
+    const pullFactor = 0.82 + breath * 0.05;
+
     ctx.clearRect(0, 0, width, height);
 
     ctx.beginPath();
@@ -108,7 +112,7 @@ export function initDotLens(canvas, container) {
       }
 
       const d = Math.sqrt(d2);
-      const pull = Math.exp(-d2 / (2 * 72 * 72)) * 0.82;
+      const pull = Math.exp(-d2 / (2 * 72 * 72)) * pullFactor;
       const px = curX + dx * (1 - pull);
       const py = curY + dy * (1 - pull);
 
@@ -124,8 +128,8 @@ export function initDotLens(canvas, container) {
       perturbed.push({
         x: px,
         y: py,
-        size: (1.1 + proximity * 1.5) * fade,
-        alpha: (0.08 + proximity * 0.72) * fade
+        size: (1.1 + proximity * 1.5 + proximity * breath * 0.25) * fade,
+        alpha: (0.08 + proximity * 0.72 + proximity * breath * 0.08) * fade
       });
     }
 
@@ -143,10 +147,10 @@ export function initDotLens(canvas, container) {
 
     ctx.fillStyle = "#000000";
     ctx.beginPath();
-    ctx.arc(curX, curY, 7, 0, Math.PI * 2);
+    ctx.arc(curX, curY, 7 + breath * 0.5, 0, Math.PI * 2);
     ctx.fill();
 
-    running = false;
+    rafId = requestAnimationFrame(render);
   };
 
   resize();
