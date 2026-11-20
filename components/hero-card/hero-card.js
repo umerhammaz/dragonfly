@@ -9,7 +9,7 @@ class HeroCard extends HTMLElement {
         <canvas class="hero-bg-canvas"></canvas>
         <header class="hero-header">
           <nav class="header-pill">
-            <img class="pill-logo" src="https://worker.github-ji.pages.dev/zerocommit.svg" alt="ZeroCommit Logo">
+            <img class="pill-logo" src="/zerocommit.svg" alt="ZeroCommit Logo">
             <a href="#get-started" class="pill-btn">
               <span class="pill-btn__mask">
                 <span class="pill-btn__text">Get Started</span>
