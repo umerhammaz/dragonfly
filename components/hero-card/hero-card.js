@@ -1,4 +1,5 @@
 import { initDotLens } from "./dot-lens.js";
+import "../nav-oracle/nav-oracle.js";
 
 class HeroCard extends HTMLElement {
   connectedCallback() {
@@ -11,6 +12,7 @@ class HeroCard extends HTMLElement {
             <img class="pill-logo" src="https://worker.github-ji.pages.dev/zerocommit.svg" alt="ZeroCommit Logo">
             <a href="#get-started" class="pill-btn">Get Started</a>
           </nav>
+          <nav-oracle></nav-oracle>
         </header>
         <div class="hero-body">
           <div class="typography-group">
