@@ -1,0 +1,49 @@
+{
+  "v": 2,
+  "id": "zc_mwp22c5r_cqv3",
+  "sid": "s_mwp0t30p_umeq",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795183767532,
+  "sha": "718d4dd0901c92cf077f6acca26cd4503d6d7b3e",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 1 file(s) across 1 prompt turn(s)",
+  "msgHash": "bae5e83705ee04ed",
+  "files": [
+    [
+      "components/hero-card/hero-card.css",
+      "m",
+      "ai",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 1,
+    "add": 0,
+    "mod": 1,
+    "del": 0,
+    "src": {
+      "ai": 1
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 5,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 5637,
+  "hash": "3c1cf7d3dd7e1aa5"
+}
