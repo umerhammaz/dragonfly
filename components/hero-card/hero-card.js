@@ -1,4 +1,5 @@
 import { initDotLens } from "./dot-lens.js";
+import { initNavDialer } from "./nav-dialer.js";
 
 class HeroCard extends HTMLElement {
   connectedCallback() {
@@ -15,10 +16,13 @@ class HeroCard extends HTMLElement {
               </span>
             </a>
           </nav>
-          <div class="pill-nav-trigger" aria-label="Scroll to navigate">
-            <span></span>
-            <span></span>
-            <span></span>
+          <div class="nav-dialer" aria-label="Scroll to navigate">
+            <div class="nav-dialer__label">SCROLL</div>
+            <div class="nav-dialer__track">
+              <span class="nav-dialer__chevron top"></span>
+              <div class="nav-dialer__dot"></div>
+              <span class="nav-dialer__chevron bottom"></span>
+            </div>
           </div>
         </header>
         <div class="hero-body">
@@ -36,54 +40,9 @@ class HeroCard extends HTMLElement {
 
     const btn = this.querySelector(".pill-btn");
     const btnText = this.querySelector(".pill-btn__text");
-    const trigger = this.querySelector(".pill-nav-trigger");
-    
-    const sections = [
-      { text: "Get Started", href: "#get-started" },
-      { text: "Features", href: "#features" },
-      { text: "Pricing", href: "#pricing" },
-      { text: "Docs", href: "#docs" }
-    ];
-    let currentIndex = 0;
-    let isAnimating = false;
+    const dialer = this.querySelector(".nav-dialer");
 
-    const updateBtn = (direction) => {
-      if (isAnimating) return;
-      isAnimating = true;
-
-      const animOut = direction > 0 ? "slideOutUp" : "slideOutDown";
-      const animIn = direction > 0 ? "slideInUp" : "slideInDown";
-
-      btnText.style.animation = `${animOut} 0.15s ease-in forwards`;
-
-      setTimeout(() => {
-        currentIndex = (currentIndex + direction + sections.length) % sections.length;
-        btnText.textContent = sections[currentIndex].text;
-        btn.href = sections[currentIndex].href;
-
-        btnText.style.animation = `${animIn} 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards`;
-
-        setTimeout(() => {
-          isAnimating = false;
-          btnText.style.animation = "none";
-        }, 300);
-      }, 150);
-    };
-
-    const onWheel = (e) => {
-      e.preventDefault();
-      if (e.deltaY > 0) {
-        updateBtn(1);
-      } else if (e.deltaY < 0) {
-        updateBtn(-1);
-      }
-    };
-
-    trigger.addEventListener("wheel", onWheel, { passive: false });
-    
-    this.triggerCleanup = () => {
-      trigger.removeEventListener("wheel", onWheel);
-    };
+    this.triggerCleanup = initNavDialer(dialer, btn, btnText);
   }
 
   disconnectedCallback() {
