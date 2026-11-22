@@ -21,4 +21,13 @@
   --border-card: #000000;
   --badge-bg: #0d0d0d;
   --btn-border: #e5e7eb;
+  --bg-obsidian: #09090b;
+  --text-on-dark: #ffffff;
+  --text-muted-dark: #8b949e;
+  --border-hairline-dark: rgba(255, 255, 255, 0.14);
+  --border-hairline-light: rgba(0, 0, 0, 0.12);
+  --frame-padding: 16px;
+  --frame-padding-mobile: 12px;
+  --frame-radius: 8px;
+  --frame-border-width: 2.5px;
 }

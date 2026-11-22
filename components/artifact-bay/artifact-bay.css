@@ -1,0 +1,101 @@
+.artifact-bay {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+}
+
+.artifact-bay__stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: min(100%, var(--bay-max-size, 520px));
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.artifact-bay[data-mode="framed"] .artifact-bay__stage {
+  border: 1px solid var(--border-hairline-dark, rgba(255, 255, 255, 0.14));
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.artifact-bay[data-surface="light"][data-mode="framed"] .artifact-bay__stage {
+  border-color: var(--border-hairline-light, rgba(0, 0, 0, 0.12));
+  background: rgba(0, 0, 0, 0.02);
+}
+
+.artifact-bay[data-mode="void"] .artifact-bay__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    transparent 56%,
+    var(--bg-obsidian, #09090b) 96%
+  );
+}
+
+.artifact-bay__media {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.artifact-bay__crosshair {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 2;
+}
+
+.artifact-bay[data-mode="framed"] .artifact-bay__crosshair {
+  opacity: 0.4;
+}
+
+.artifact-bay__crosshair::before,
+.artifact-bay__crosshair::after {
+  content: "";
+  position: absolute;
+  background: currentColor;
+}
+
+.artifact-bay__crosshair::before {
+  top: 4px;
+  left: 0;
+  width: 9px;
+  height: 1px;
+}
+
+.artifact-bay__crosshair::after {
+  top: 0;
+  left: 4px;
+  width: 1px;
+  height: 9px;
+}
+
+.artifact-bay__crosshair--tl { top: 10px; left: 10px; }
+.artifact-bay__crosshair--tr { top: 10px; right: 10px; }
+.artifact-bay__crosshair--bl { bottom: 10px; left: 10px; }
+.artifact-bay__crosshair--br { bottom: 10px; right: 10px; }
+
+.artifact-bay__caption {
+  font-family: var(--font-geist-mono, monospace);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted-dark, #8b949e);
+  opacity: 0.72;
+  text-align: center;
+}
+
+.artifact-bay[data-surface="light"] .artifact-bay__caption {
+  color: var(--text-muted, #7c878e);
+}
