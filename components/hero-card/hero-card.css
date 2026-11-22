@@ -35,25 +35,9 @@
   padding-top: 8px;
 }
 
-.hero-header.is-docked {
-  position: fixed;
-  top: 24px;
-  left: 0;
-  right: 0;
-  z-index: 40;
-  padding-top: 0;
-  pointer-events: none;
-}
-
-.hero-header.is-docked .header-pill,
-.hero-header.is-docked .nav-dialer {
-  pointer-events: auto;
-}
-
 .header-pill {
   cursor: default;
   background: var(--badge-bg, #0d0d0d);
-  border: 1px solid transparent;
   border-radius: 14px;
   padding: 8px 10px 8px 20px;
   display: inline-flex;
@@ -62,37 +46,6 @@
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
   min-height: 56px;
   box-sizing: border-box;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.hero-header.is-on-dark .header-pill {
-  border-color: var(--plate-dark-rule-strong, rgba(255, 255, 255, 0.24));
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
-}
-
-.hero-header.is-on-dark .nav-dialer__track {
-  background: #0d0d0d;
-  border-color: rgba(255, 255, 255, 0.28);
-}
-
-.hero-header.is-on-dark .nav-dialer:hover .nav-dialer__track {
-  border-color: #ffffff;
-}
-
-.hero-header.is-on-dark .nav-dialer__dot {
-  background-color: #ffffff;
-}
-
-.hero-header.is-on-dark .nav-dialer__chevron.top {
-  border-bottom-color: #ffffff;
-}
-
-.hero-header.is-on-dark .nav-dialer__chevron.bottom {
-  border-top-color: #ffffff;
-}
-
-.hero-header.is-on-dark .nav-dialer__label {
-  color: rgba(255, 255, 255, 0.62);
 }
 
 .pill-logo {
@@ -247,7 +200,6 @@
   display: flex;
   width: 100%;
   align-items: flex-end;
-  margin-top: auto;
   padding-bottom: 8px;
 }
 
@@ -295,10 +247,6 @@
 
   .hero-header {
     gap: 12px;
-  }
-
-  .hero-header.is-docked {
-    top: 18px;
   }
 
   .header-pill {
