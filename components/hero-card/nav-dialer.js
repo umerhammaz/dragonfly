@@ -1,3 +1,8 @@
+import {
+  prefersReducedMotion,
+  triggerTactileFeedback
+} from "../../js/tactile.js";
+
 const SECTIONS = [
   { text: "Get Started", href: "#get-started" },
   { text: "Features", href: "#features" },
@@ -5,71 +10,43 @@ const SECTIONS = [
   { text: "Docs", href: "#docs" }
 ];
 
-export function initNavDialer(dialer, button, btnText) {
+const SQUISH_DURATION_MS = 150;
+const SLIDE_OUT_MS = 150;
+const SLIDE_IN_MS = 250;
+const DOCK_SCROLL_THRESHOLD_PX = 40;
+const DOCK_PROBE_Y_PX = 52;
+
+export function initNavDialer(dialer, button, btnText, header) {
   let currentIndex = 0;
   let isAnimating = false;
-  let audioCtx = null;
-
-  const playTick = () => {
-    try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      
-      const osc = audioCtx.createOscillator();
-      const gainNode = audioCtx.createGain();
-      
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-      
-      gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-      
-      osc.connect(gainNode);
-      gainNode.connect(audioCtx.destination);
-      
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.05);
-    } catch (e) {
-      // Silently fail if audio context is blocked
-    }
-  };
-
-  const triggerHaptics = () => {
-    if (navigator.vibrate) {
-      navigator.vibrate(15);
-    }
-  };
+  let scrollRafId = null;
 
   const updateBtn = (direction) => {
     if (isAnimating) return;
     isAnimating = true;
 
-    playTick();
-    triggerHaptics();
-    
+    triggerTactileFeedback("detent");
+
     button.classList.add("is-squished");
-    setTimeout(() => button.classList.remove("is-squished"), 150);
+    setTimeout(() => button.classList.remove("is-squished"), SQUISH_DURATION_MS);
 
     const animOut = direction > 0 ? "slideOutUp" : "slideOutDown";
     const animIn = direction > 0 ? "slideInUp" : "slideInDown";
 
-    btnText.style.animation = `${animOut} 0.15s ease-in forwards`;
+    btnText.style.animation = `${animOut} ${SLIDE_OUT_MS}ms ease-in forwards`;
 
     setTimeout(() => {
       currentIndex = (currentIndex + direction + SECTIONS.length) % SECTIONS.length;
       btnText.textContent = SECTIONS[currentIndex].text;
       button.href = SECTIONS[currentIndex].href;
 
-      btnText.style.animation = `${animIn} 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards`;
+      btnText.style.animation = `${animIn} ${SLIDE_IN_MS}ms cubic-bezier(0.25, 1, 0.5, 1) forwards`;
 
       setTimeout(() => {
         isAnimating = false;
         btnText.style.animation = "none";
-      }, 250);
-    }, 150);
+      }, SLIDE_IN_MS);
+    }, SLIDE_OUT_MS);
   };
 
   const onWheel = (e) => {
@@ -81,10 +58,61 @@ export function initNavDialer(dialer, button, btnText) {
     }
   };
 
+  const onButtonClick = (e) => {
+    const href = button.getAttribute("href");
+    if (!href || !href.startsWith("#")) return;
+    const target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+      block: "start"
+    });
+  };
+
+  const syncHeaderDock = () => {
+    scrollRafId = null;
+    if (!header) return;
+
+    const shouldDock = window.scrollY > DOCK_SCROLL_THRESHOLD_PX;
+    header.classList.toggle("is-docked", shouldDock);
+
+    if (!shouldDock) {
+      header.classList.remove("is-on-dark");
+      return;
+    }
+
+    const darkPlates = document.querySelectorAll('[data-plate-theme="dark"]');
+    let overDark = false;
+    for (let i = 0; i < darkPlates.length; i++) {
+      const rect = darkPlates[i].getBoundingClientRect();
+      if (rect.top <= DOCK_PROBE_Y_PX && rect.bottom >= DOCK_PROBE_Y_PX) {
+        overDark = true;
+        break;
+      }
+    }
+    header.classList.toggle("is-on-dark", overDark);
+  };
+
+  const scheduleHeaderSync = () => {
+    if (scrollRafId === null) {
+      scrollRafId = requestAnimationFrame(syncHeaderDock);
+    }
+  };
+
   dialer.addEventListener("wheel", onWheel, { passive: false });
+  button.addEventListener("click", onButtonClick);
+  window.addEventListener("scroll", scheduleHeaderSync, { passive: true });
+  window.addEventListener("resize", scheduleHeaderSync, { passive: true });
+  syncHeaderDock();
 
   return () => {
     dialer.removeEventListener("wheel", onWheel);
-    if (audioCtx) audioCtx.close();
+    button.removeEventListener("click", onButtonClick);
+    window.removeEventListener("scroll", scheduleHeaderSync);
+    window.removeEventListener("resize", scheduleHeaderSync);
+    if (scrollRafId !== null) {
+      cancelAnimationFrame(scrollRafId);
+    }
   };
 }

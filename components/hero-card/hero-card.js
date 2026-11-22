@@ -38,11 +38,12 @@ class HeroCard extends HTMLElement {
     const card = this.querySelector(".hero-card");
     this.cleanup = initDotLens(canvas, card);
 
+    const header = this.querySelector(".hero-header");
     const btn = this.querySelector(".pill-btn");
     const btnText = this.querySelector(".pill-btn__text");
     const dialer = this.querySelector(".nav-dialer");
 
-    this.triggerCleanup = initNavDialer(dialer, btn, btnText);
+    this.triggerCleanup = initNavDialer(dialer, btn, btnText, header);
   }
 
   disconnectedCallback() {
