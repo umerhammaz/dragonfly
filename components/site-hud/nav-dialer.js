@@ -1,8 +1,6 @@
 const SECTIONS = [
-  { text: "Get Started", href: "#get-started" },
-  { text: "Features", href: "#features" },
-  { text: "Pricing", href: "#pricing" },
-  { text: "Docs", href: "#docs" }
+  { text: "Get Started", href: "#hero" },
+  { text: "The Shift", href: "#thesis" }
 ];
 
 export function initNavDialer(dialer, button, btnText) {
@@ -72,6 +70,15 @@ export function initNavDialer(dialer, button, btnText) {
     }, 150);
   };
 
+  const syncToHref = (href) => {
+    const index = SECTIONS.findIndex((section) => section.href === href);
+    if (index === -1 || index === currentIndex) return;
+
+    currentIndex = index;
+    btnText.textContent = SECTIONS[currentIndex].text;
+    button.href = SECTIONS[currentIndex].href;
+  };
+
   const onWheel = (e) => {
     e.preventDefault();
     if (e.deltaY > 0) {
@@ -83,8 +90,11 @@ export function initNavDialer(dialer, button, btnText) {
 
   dialer.addEventListener("wheel", onWheel, { passive: false });
 
-  return () => {
-    dialer.removeEventListener("wheel", onWheel);
-    if (audioCtx) audioCtx.close();
+  return {
+    cleanup: () => {
+      dialer.removeEventListener("wheel", onWheel);
+      if (audioCtx) audioCtx.close();
+    },
+    syncToHref
   };
 }
