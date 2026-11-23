@@ -5,7 +5,6 @@ export function initDotLens(canvas, container) {
   let dpr = 1;
   let rafId = null;
   let running = false;
-  let isVisible = true;
 
   let targetX = 0;
   let targetY = 0;
@@ -30,17 +29,9 @@ export function initDotLens(canvas, container) {
   };
 
   const start = () => {
-    if (!running && isVisible) {
+    if (!running) {
       running = true;
       rafId = requestAnimationFrame(render);
-    }
-  };
-
-  const stop = () => {
-    if (running) {
-      running = false;
-      cancelAnimationFrame(rafId);
-      rafId = null;
     }
   };
 
@@ -162,25 +153,10 @@ export function initDotLens(canvas, container) {
     rafId = requestAnimationFrame(render);
   };
 
-  const visibilityObserver = new IntersectionObserver(
-    (entries) => {
-      const entry = entries[0];
-      isVisible = Boolean(entry && entry.isIntersecting);
-      if (isVisible) {
-        start();
-      } else {
-        stop();
-      }
-    },
-    { threshold: 0.01 }
-  );
-  visibilityObserver.observe(container);
-
   resize();
 
   return () => {
-    stop();
-    visibilityObserver.disconnect();
+    cancelAnimationFrame(rafId);
     resizeObserver.disconnect();
     container.removeEventListener("pointermove", onPointerMove);
     container.removeEventListener("pointerleave", onPointerLeave);
