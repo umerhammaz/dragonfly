@@ -1,0 +1,49 @@
+{
+  "v": 2,
+  "id": "zc_mwt44rvo_nll7",
+  "sid": "s_mwt43vmw_furc",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795429105141,
+  "sha": "292b44198bb21ac013433b93300672924599da50",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 1 file(s) across 1 prompt turn(s)",
+  "msgHash": "2d9f20ee10c35104",
+  "files": [
+    [
+      "components/site-hud/nav-dialer.js",
+      "m",
+      "ai",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 1,
+    "add": 0,
+    "mod": 1,
+    "del": 0,
+    "src": {
+      "ai": 1
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 5939,
+  "hash": "028fd8d43172651d"
+}
