@@ -1,0 +1,171 @@
+{
+  "v": 2,
+  "id": "zc_mwt8t9rb_va1s",
+  "sid": "s_mwt8l3s8_pkev",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795436966561,
+  "sha": "7c45d75d63f3431444af1de61da7c835c0ebd51d",
+  "branch": "main",
+  "delivery": "restore",
+  "msgSubj": "Zerocommit.dev — Restore to 1413381",
+  "msgHash": "6bc7cad339a200f1",
+  "files": [
+    [
+      "components/artifact-bay/artifact-bay.css",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/artifact-bay/artifact-bay.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/artifact-bay/black-hole-canvas.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/dot-lens.js",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/hero-card.css",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/hero-card.js",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/nav-dialer.js",
+      "a",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/nav-dialer.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/site-hud.css",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/site-hud.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/thesis-screen/thesis-screen.css",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "components/thesis-screen/thesis-screen.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "css/main.css",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "css/variables.css",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "index.html",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "js/cinema-controller.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "js/main.js",
+      "m",
+      "man",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 17,
+    "add": 1,
+    "mod": 7,
+    "del": 9,
+    "src": {
+      "man": 17
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 3614,
+  "restore": {
+    "rid": "rst_mwt8t9r4_n4u4",
+    "fromSha": "3860e87b16677254d25dc5988fa1318cdd2c46d2",
+    "fromTree": "a470cc1c3a2f9a714d7c74b9d17b9fadbd0db6ad",
+    "toSha": "141338165c7f1e27d65f81715f5ad4028dfe9b79",
+    "toTree": "efcf484c4a04b0d7907cb39746186897b6125074",
+    "backup": "backup/main-20261123-122914-3860e87",
+    "isUndo": false,
+    "undoesId": ""
+  },
+  "hash": "b9684ea0cdfd8bb5"
+}
