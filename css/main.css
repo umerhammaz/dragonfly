@@ -42,6 +42,8 @@ body {
   overscroll-behavior: contain;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  perspective: var(--stage-perspective, 1400px);
+  transform-style: preserve-3d;
 }
 
 .cinema-stage::-webkit-scrollbar {
@@ -56,6 +58,7 @@ body {
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
+  will-change: transform, opacity;
 }
 
 @media (max-width: 768px) {
