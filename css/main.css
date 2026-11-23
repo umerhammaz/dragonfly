@@ -20,6 +20,15 @@ body {
   flex-direction: column;
 }
 
+/*
+ * CINEMA WINDOW
+ * -------------
+ * The frame is the STATIC outer window. It never translates, rotates,
+ * scales or parallaxes — its position is fixed in the layout.
+ * Every screen, every 3D move and every HUD layer is painted strictly
+ * inside it (overflow + isolation), so nothing can ever bleed past
+ * the border, not even composited 3D layers.
+ */
 .cinema-frame {
   position: relative;
   flex: 1;
@@ -29,8 +38,19 @@ body {
   border-radius: var(--frame-radius, 8px);
   background: var(--bg-canvas, #ffffff);
   overflow: hidden;
+  isolation: isolate;
+  transform: none;
 }
 
+/*
+ * The stage is the scroll container AND the 3D camera. It scrolls the
+ * screens and applies the perspective, but it is hard-clipped:
+ *  - overflow clip from the frame (rounded corners)
+ *  - clip-path: inset(0) — a paint-level clip that even composited
+ *    transform layers cannot escape
+ *  - transform-style: flat — children flatten into the stage plane,
+ *    so the overflow clip is always applied after projection
+ */
 .cinema-stage {
   position: relative;
   width: 100%;
@@ -43,6 +63,9 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   perspective: var(--stage-perspective, 1400px);
+  perspective-origin: 50% 50%;
+  transform-style: flat;
+  clip-path: inset(0);
 }
 
 .cinema-stage::-webkit-scrollbar {
@@ -57,6 +80,8 @@ body {
   position: relative;
   scroll-snap-align: start;
   scroll-snap-stop: normal;
+  transform-origin: 50% 50%;
+  backface-visibility: hidden;
   will-change: transform, opacity;
 }
 

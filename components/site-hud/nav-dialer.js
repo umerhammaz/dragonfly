@@ -14,20 +14,20 @@ export function initNavDialer(dialer, button, btnText) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
       if (audioCtx.state === 'suspended') audioCtx.resume();
-      
+
       const osc = audioCtx.createOscillator();
       const gainNode = audioCtx.createGain();
-      
+
       osc.type = 'sine';
       osc.frequency.setValueAtTime(800, audioCtx.currentTime);
       osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.05);
-      
+
       gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
       gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
-      
+
       osc.connect(gainNode);
       gainNode.connect(audioCtx.destination);
-      
+
       osc.start();
       osc.stop(audioCtx.currentTime + 0.05);
     } catch (e) {
@@ -47,7 +47,7 @@ export function initNavDialer(dialer, button, btnText) {
 
     playTick();
     triggerHaptics();
-    
+
     button.classList.add("is-squished");
     setTimeout(() => button.classList.remove("is-squished"), 150);
 
