@@ -1,0 +1,175 @@
+{
+  "v": 2,
+  "id": "zc_mwt8l3s9_50v2",
+  "sid": "s_mwt8l3s8_pkev",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795436585023,
+  "sha": "9f5650efe34ca47d7fa9d841c594e3934d21dd56",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 19 file(s) across 1 prompt turn(s)",
+  "msgHash": "43c9dec81cdfa892",
+  "files": [
+    [
+      "zerocommit.svg",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "js/cinema-transition.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "js/cinema-controller.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "js/main.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "index.html",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "README.md",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/site-hud.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/site-hud.css",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/site-hud/nav-dialer.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/dot-lens.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/hero-card.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/hero-card.css",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/artifact-bay/black-hole-canvas.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/artifact-bay/artifact-bay.css",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/artifact-bay/artifact-bay.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/thesis-screen/thesis-screen.js",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "components/thesis-screen/thesis-screen.css",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "css/variables.css",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "css/main.css",
+      "m",
+      "zip",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 19,
+    "add": 0,
+    "mod": 19,
+    "del": 0,
+    "src": {
+      "zip": 19
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 11780,
+  "hash": "419f51b3011dd1d2"
+}
