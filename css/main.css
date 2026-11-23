@@ -43,7 +43,6 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   perspective: var(--stage-perspective, 1400px);
-  transform-style: preserve-3d;
 }
 
 .cinema-stage::-webkit-scrollbar {

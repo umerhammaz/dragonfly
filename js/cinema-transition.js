@@ -24,15 +24,20 @@ export function initCinemaTransition() {
   const apply = () => {
     rafId = null;
 
-    const stageRect = stage.getBoundingClientRect();
-    const stageCenter = stageRect.top + stageRect.height * CENTER_RATIO;
+    const viewportHeight = stage.clientHeight;
+    if (!viewportHeight) return;
+
+    const scrollTop = stage.scrollTop;
+    const viewportCenter = viewportHeight * CENTER_RATIO;
 
     for (const screen of screens) {
-      const rect = screen.getBoundingClientRect();
-      const screenCenter = rect.top + rect.height * CENTER_RATIO;
+      // Layout coordinates only: getBoundingClientRect would include the transform
+      // we are about to write and feed it back into the next frame.
+      const screenCenter =
+        screen.offsetTop + screen.offsetHeight * CENTER_RATIO - scrollTop;
       // progress: 0 when centered, ±1 when a full screen away
       const progress = clamp(
-        (screenCenter - stageCenter) / stageRect.height,
+        (screenCenter - viewportCenter) / viewportHeight,
         -PROGRESS_LIMIT,
         PROGRESS_LIMIT
       );
