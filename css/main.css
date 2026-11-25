@@ -257,16 +257,31 @@ body {
   opacity: 0;
 }
 
+.app-cursor.is-muted {
+  opacity: 0.35;
+}
+
+.app-cursor.is-solid {
+  mix-blend-mode: normal;
+  background: #000000;
+  box-shadow: 0 0 0 1.5px #ffffff;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .app-frame,
   .app-frame * {
     cursor: none;
   }
 
-  .app-frame input,
+  .app-frame input:not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="image"]),
   .app-frame textarea,
   .app-frame [contenteditable="true"] {
     cursor: text;
+  }
+
+  .app-frame iframe,
+  .app-frame [data-cursor="none"] {
+    cursor: auto;
   }
 }
 
