@@ -48,7 +48,6 @@ function createItemEl(model) {
 export function mount(stage) {
   const pill = stage.querySelector(".llm-pill");
   const viewport = stage.querySelector(".llm-pill__viewport");
-  const counterNum = stage.querySelector(".instant-counter__num");
   if (!pill || !viewport) return;
 
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -160,10 +159,6 @@ export function mount(stage) {
     const outgoing = viewport.querySelector(".is-current");
     const incoming = createItemEl(MODELS[nextIndex]);
     incoming.classList.add("is-current");
-
-    if (counterNum) {
-      counterNum.textContent = String(nextIndex + 1).padStart(2, "0");
-    }
 
     applyWidth(nextIndex);
 

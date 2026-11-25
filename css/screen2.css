@@ -1,16 +1,13 @@
 .screen--instant {
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
 .instant-stage {
-  flex: 1;
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: center;
-  /* Compensate for the persistent top header so copy sits at the frame's optical center */
-  padding-bottom: 32px;
+  padding-bottom: 12px;
 }
 
 .instant-statement {
@@ -228,24 +225,6 @@
   }
 }
 
-.instant-meta {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  font-family: var(--font-geist-mono, monospace);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted, #7c878e);
-  user-select: none;
-}
-
-.instant-counter__num {
-  font-variant-numeric: tabular-nums;
-  color: var(--text-main, #000000);
-}
 
 @media (min-width: 1080px) {
   .instant-statement {
@@ -263,20 +242,12 @@
 
 @media (max-width: 768px) {
   .instant-stage {
-    padding-bottom: 20px;
+    padding-bottom: 4px;
   }
 
   .instant-statement {
     font-size: clamp(21px, 5.6vw, 29px);
     line-height: 1.52;
-  }
-
-  .instant-hint {
-    display: none;
-  }
-
-  .instant-meta {
-    justify-content: center;
   }
 }
 
