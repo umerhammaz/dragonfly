@@ -1,28 +1,27 @@
 const LOGO_BASE = "./LLM-Chat-Logos/SVG/";
-const CYCLE_INTERVAL_MS = 2200;
-const EXIT_CLEANUP_MS = 340;
-const SQUISH_MS = 140;
-const WHEEL_COOLDOWN_MS = 240;
+const CYCLE_INTERVAL_MS = 1850;
+const SWAP_CLEANUP_MS = 600;
 const WIDTH_BUFFER_PX = 2;
 
+// Ordered from highest to lowest global brand recognition
 const MODELS = [
   { name: "ChatGPT", file: "openai.svg" },
   { name: "Claude", file: "claude.svg" },
-  { name: "Gemini", file: "gemini.svg" },
   { name: "DeepSeek", file: "deepseek.svg" },
+  { name: "Gemini", file: "gemini.svg" },
   { name: "Grok", file: "grok.svg" },
   { name: "Qwen", file: "qwen.svg" },
   { name: "Mistral", file: "mistral.svg" },
-  { name: "Kimi", file: "kimi.svg" },
   { name: "Gemma", file: "gemma.svg" },
+  { name: "Kimi", file: "kimi.svg" },
   { name: "GLM", file: "glmv.svg" },
-  { name: "MiniMax", file: "minimax.svg" },
   { name: "Command", file: "commanda.svg" },
+  { name: "Nova", file: "nova.svg" },
+  { name: "MiniMax", file: "minimax.svg" },
   { name: "Doubao", file: "doubao.svg" },
   { name: "Hunyuan", file: "hunyuan.svg" },
   { name: "ERNIE", file: "wenxin.svg" },
-  { name: "Spark", file: "spark.svg" },
-  { name: "Nova", file: "nova.svg" }
+  { name: "Spark", file: "spark.svg" }
 ];
 
 function createItemEl(model) {
@@ -50,50 +49,17 @@ export function mount(stage) {
   const viewport = stage.querySelector(".llm-pill__viewport");
   if (!pill || !viewport) return;
 
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
-
   let currentIndex = 0;
   let widths = [];
-  let isHovered = false;
-  let isFocused = false;
   let destroyed = false;
-  let lastWheelAt = 0;
   let cycleTimer = 0;
   let cleanupTimer = 0;
-  let squishTimer = 0;
-  let audioCtx = null;
 
   for (const model of MODELS) {
     const img = new Image();
     img.src = `${LOGO_BASE}${model.file}`;
     img.decode?.().catch(() => {});
   }
-
-  const playTick = () => {
-    try {
-      if (!audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      if (audioCtx.state === "suspended") audioCtx.resume();
-
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(760, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(320, audioCtx.currentTime + 0.045);
-
-      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.045);
-
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.045);
-    } catch {
-      // Ignore blocked audio contexts
-    }
-  };
 
   const applyWidth = (index) => {
     if (widths[index] > 0) {
@@ -136,93 +102,42 @@ export function mount(stage) {
     cycleTimer = 0;
   };
 
-  const scheduleCycle = () => {
-    stopCycle();
-    if (destroyed || document.hidden || isHovered || isFocused || reducedMotion.matches) {
-      return;
-    }
-    cycleTimer = setTimeout(() => {
-      step(1, false);
-      scheduleCycle();
-    }, CYCLE_INTERVAL_MS);
-  };
-
-  const step = (direction, interactive) => {
-    const nextIndex = (currentIndex + direction + MODELS.length) % MODELS.length;
-    currentIndex = nextIndex;
+  const step = () => {
+    currentIndex = (currentIndex + 1) % MODELS.length;
 
     clearTimeout(cleanupTimer);
-    for (const stale of viewport.querySelectorAll(".is-exit-up, .is-exit-down")) {
+    for (const stale of viewport.querySelectorAll(".is-exit")) {
       stale.remove();
     }
 
     const outgoing = viewport.querySelector(".is-current");
-    const incoming = createItemEl(MODELS[nextIndex]);
-    incoming.classList.add("is-current");
+    const incoming = createItemEl(MODELS[currentIndex]);
+    incoming.classList.add("is-current", "is-enter");
 
-    applyWidth(nextIndex);
+    applyWidth(currentIndex);
+    pill.classList.add("is-swapping");
 
-    if (reducedMotion.matches || !outgoing) {
+    if (outgoing) {
+      outgoing.classList.remove("is-current", "is-enter");
+      outgoing.classList.add("is-exit");
+    }
+
+    viewport.append(incoming);
+
+    cleanupTimer = setTimeout(() => {
       outgoing?.remove();
-      viewport.append(incoming);
-    } else {
-      const exitClass = direction > 0 ? "is-exit-up" : "is-exit-down";
-      const enterClass = direction > 0 ? "is-enter-up" : "is-enter-down";
+      incoming.classList.remove("is-enter");
+      pill.classList.remove("is-swapping");
+    }, SWAP_CLEANUP_MS);
+  };
 
-      outgoing.classList.remove("is-current", "is-enter-up", "is-enter-down");
-      outgoing.classList.add(exitClass);
-      incoming.classList.add(enterClass);
-      viewport.append(incoming);
-
-      cleanupTimer = setTimeout(() => {
-        outgoing.remove();
-        incoming.classList.remove(enterClass);
-      }, EXIT_CLEANUP_MS);
-    }
-
-    if (interactive) {
-      playTick();
-      pill.classList.add("is-squished");
-      clearTimeout(squishTimer);
-      squishTimer = setTimeout(() => pill.classList.remove("is-squished"), SQUISH_MS);
+  const scheduleCycle = () => {
+    stopCycle();
+    if (destroyed || document.hidden) return;
+    cycleTimer = setTimeout(() => {
+      step();
       scheduleCycle();
-    }
-  };
-
-  const onClick = () => step(1, true);
-
-  const onWheel = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const now = performance.now();
-    if (now - lastWheelAt < WHEEL_COOLDOWN_MS) return;
-    if (e.deltaY === 0) return;
-    lastWheelAt = now;
-    step(e.deltaY > 0 ? 1 : -1, true);
-  };
-
-  const onPointerEnter = (e) => {
-    if (e.pointerType === "touch") return;
-    isHovered = true;
-    stopCycle();
-  };
-
-  const onPointerLeave = (e) => {
-    if (e.pointerType === "touch") return;
-    isHovered = false;
-    scheduleCycle();
-  };
-
-  const onFocusIn = () => {
-    if (!pill.matches(":focus-visible")) return;
-    isFocused = true;
-    stopCycle();
-  };
-
-  const onFocusOut = () => {
-    if (!isFocused) return;
-    isFocused = false;
-    scheduleCycle();
+    }, CYCLE_INTERVAL_MS);
   };
 
   const onVisibilityChange = () => {
@@ -233,19 +148,9 @@ export function mount(stage) {
     }
   };
 
-  const onMotionChange = () => scheduleCycle();
-
   const resizeObserver = new ResizeObserver(measureWidths);
   resizeObserver.observe(stage);
-
-  pill.addEventListener("click", onClick);
-  pill.addEventListener("wheel", onWheel, { passive: false });
-  pill.addEventListener("pointerenter", onPointerEnter, { passive: true });
-  pill.addEventListener("pointerleave", onPointerLeave, { passive: true });
-  pill.addEventListener("focusin", onFocusIn);
-  pill.addEventListener("focusout", onFocusOut);
   document.addEventListener("visibilitychange", onVisibilityChange);
-  reducedMotion.addEventListener("change", onMotionChange);
 
   measureWidths();
   document.fonts?.ready.then(measureWidths);
@@ -255,16 +160,7 @@ export function mount(stage) {
     destroyed = true;
     stopCycle();
     clearTimeout(cleanupTimer);
-    clearTimeout(squishTimer);
     resizeObserver.disconnect();
-    pill.removeEventListener("click", onClick);
-    pill.removeEventListener("wheel", onWheel);
-    pill.removeEventListener("pointerenter", onPointerEnter);
-    pill.removeEventListener("pointerleave", onPointerLeave);
-    pill.removeEventListener("focusin", onFocusIn);
-    pill.removeEventListener("focusout", onFocusOut);
     document.removeEventListener("visibilitychange", onVisibilityChange);
-    reducedMotion.removeEventListener("change", onMotionChange);
-    if (audioCtx) audioCtx.close();
   };
 }
