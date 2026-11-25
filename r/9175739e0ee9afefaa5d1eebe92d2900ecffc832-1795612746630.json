@@ -1,0 +1,175 @@
+{
+  "v": 2,
+  "id": "zc_mww5gv1i_ij1u",
+  "sid": "s_mww5gv1h_kwd3",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795612746630,
+  "sha": "9175739e0ee9afefaa5d1eebe92d2900ecffc832",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 19 file(s) across 1 prompt turn(s)",
+  "msgHash": "43c9dec81cdfa892",
+  "files": [
+    [
+      "LLM-Chat-Logos/LOBEHUB-MIT-LICENSE.txt",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "README.md",
+      "m",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/claude.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/commanda.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/deepseek.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/doubao.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/gemini.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/gemma.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/glmv.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/grok.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/hunyuan.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/kimi.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/minimax.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/mistral.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/nova.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/openai.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/qwen.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/spark.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ],
+    [
+      "LLM-Chat-Logos/SVG/wenxin.svg",
+      "a",
+      "zip",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 19,
+    "add": 18,
+    "mod": 1,
+    "del": 0,
+    "src": {
+      "zip": 19
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 14639,
+  "hash": "898a88429cb083e8"
+}
