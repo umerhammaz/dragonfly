@@ -9,6 +9,33 @@
   <script type="module" src="./js/main.js"></script>
 </head>
 <body>
-  <hero-card></hero-card>
+  <div class="app-frame">
+    <canvas class="app-bg-canvas" aria-hidden="true"></canvas>
+
+    <header class="app-header">
+      <nav class="header-pill" aria-label="Primary navigation">
+        <a href="#screen1" class="pill-logo-link" aria-label="ZeroCommit Home">
+          <img class="pill-logo" src="/zerocommit.svg" alt="ZeroCommit Logo">
+        </a>
+        <a href="#screen2" class="pill-btn">
+          <span class="pill-btn__mask">
+            <span class="pill-btn__text">Get Started</span>
+          </span>
+        </a>
+      </nav>
+      <div class="nav-dialer" aria-label="Scroll to navigate">
+        <div class="nav-dialer__label">SCROLL</div>
+        <div class="nav-dialer__track">
+          <span class="nav-dialer__chevron top"></span>
+          <div class="nav-dialer__dot"></div>
+          <span class="nav-dialer__chevron bottom"></span>
+        </div>
+      </div>
+    </header>
+
+    <main id="screen-stage" class="screen-stage" aria-live="polite"></main>
+
+    <div class="app-cursor" aria-hidden="true"></div>
+  </div>
 </body>
 </html>

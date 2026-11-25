@@ -1,21 +1,29 @@
-export function initDotLens(canvas, container) {
+const STEP = 26;
+const RADIUS = 230;
+const RADIUS_SQ = RADIUS * RADIUS;
+const CURSOR_BASE_RADIUS = 7;
+const CURSOR_BREATH_AMP = 0.5;
+const CURSOR_HOVER_SCALE = 1.45;
+const CURSOR_LERP = 0.2;
+const INTERACTIVE_SELECTOR = "a, button, [role='button'], .nav-dialer";
+const TEXT_INPUT_SELECTOR = "input, textarea, [contenteditable='true']";
+
+export function initDotLens(canvas, container, cursorEl = null) {
   const ctx = canvas.getContext("2d");
   let width = 0;
   let height = 0;
   let dpr = 1;
   let rafId = null;
   let running = false;
+  let containerRect = null;
 
   let targetX = 0;
   let targetY = 0;
   let curX = 0;
   let curY = 0;
   let hasPointer = false;
-
-  const STEP = 26;
-  const RADIUS = 230;
-  const RADIUS_SQ = RADIUS * RADIUS;
-  const EXCLUSION_RADIUS = 14;
+  let hoverScale = 1;
+  let targetHoverScale = 1;
 
   let gridPoints = [];
 
@@ -35,6 +43,10 @@ export function initDotLens(canvas, container) {
     }
   };
 
+  const syncRect = () => {
+    containerRect = container.getBoundingClientRect();
+  };
+
   const resize = () => {
     dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     width = container.clientWidth;
@@ -42,6 +54,7 @@ export function initDotLens(canvas, container) {
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    syncRect();
 
     if (!hasPointer) {
       targetX = width * 0.5;
@@ -56,12 +69,20 @@ export function initDotLens(canvas, container) {
 
   const resizeObserver = new ResizeObserver(resize);
   resizeObserver.observe(container);
+  window.addEventListener("resize", syncRect);
 
   const onPointerMove = (e) => {
-    const rect = container.getBoundingClientRect();
-    targetX = e.clientX - rect.left;
-    targetY = e.clientY - rect.top;
+    if (!containerRect) syncRect();
+    targetX = e.clientX - containerRect.left;
+    targetY = e.clientY - containerRect.top;
     hasPointer = true;
+
+    if (cursorEl && e.target instanceof Element) {
+      const isText = Boolean(e.target.closest(TEXT_INPUT_SELECTOR));
+      cursorEl.classList.toggle("is-hidden", isText);
+      targetHoverScale = !isText && e.target.closest(INTERACTIVE_SELECTOR) ? CURSOR_HOVER_SCALE : 1;
+    }
+
     start();
   };
 
@@ -69,6 +90,8 @@ export function initDotLens(canvas, container) {
     hasPointer = false;
     targetX = width * 0.5;
     targetY = height * 0.45;
+    targetHoverScale = 1;
+    if (cursorEl) cursorEl.classList.remove("is-hidden");
     start();
   };
 
@@ -145,10 +168,16 @@ export function initDotLens(canvas, container) {
     }
 
 
-    ctx.fillStyle = "#000000";
-    ctx.beginPath();
-    ctx.arc(curX, curY, 7 + breath * 0.5, 0, Math.PI * 2);
-    ctx.fill();
+    if (cursorEl) {
+      hoverScale += (targetHoverScale - hoverScale) * CURSOR_LERP;
+      const breathScale = (CURSOR_BASE_RADIUS + breath * CURSOR_BREATH_AMP) / CURSOR_BASE_RADIUS;
+      cursorEl.style.transform = `translate3d(${curX}px, ${curY}px, 0) scale(${breathScale * hoverScale})`;
+    } else {
+      ctx.fillStyle = "#000000";
+      ctx.beginPath();
+      ctx.arc(curX, curY, CURSOR_BASE_RADIUS + breath * CURSOR_BREATH_AMP, 0, Math.PI * 2);
+      ctx.fill();
+    }
 
     rafId = requestAnimationFrame(render);
   };
@@ -158,6 +187,7 @@ export function initDotLens(canvas, container) {
   return () => {
     cancelAnimationFrame(rafId);
     resizeObserver.disconnect();
+    window.removeEventListener("resize", syncRect);
     container.removeEventListener("pointermove", onPointerMove);
     container.removeEventListener("pointerleave", onPointerLeave);
   };

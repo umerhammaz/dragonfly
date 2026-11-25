@@ -1,14 +1,15 @@
-const SECTIONS = [
-  { text: "Get Started", href: "#get-started" },
-  { text: "Features", href: "#features" },
-  { text: "Pricing", href: "#pricing" },
-  { text: "Docs", href: "#docs" }
-];
-
-export function initNavDialer(dialer, button, btnText) {
+export function initNavDialer(dialer, button, btnText, sections, defaultRoute) {
   let currentIndex = 0;
   let isAnimating = false;
   let audioCtx = null;
+
+  const applySection = (index) => {
+    currentIndex = index;
+    btnText.textContent = sections[currentIndex].text;
+    button.href = sections[currentIndex].href;
+  };
+
+  applySection(0);
 
   const playTick = () => {
     try {
@@ -59,9 +60,7 @@ export function initNavDialer(dialer, button, btnText) {
     btnText.style.animation = `${animOut} 0.15s ease-in forwards`;
 
     setTimeout(() => {
-      currentIndex = (currentIndex + direction + SECTIONS.length) % SECTIONS.length;
-      btnText.textContent = SECTIONS[currentIndex].text;
-      button.href = SECTIONS[currentIndex].href;
+      applySection((currentIndex + direction + sections.length) % sections.length);
 
       btnText.style.animation = `${animIn} 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards`;
 
@@ -72,8 +71,19 @@ export function initNavDialer(dialer, button, btnText) {
     }, 150);
   };
 
+  const sync = (routeId) => {
+    if (isAnimating) return;
+    if (routeId === defaultRoute) {
+      applySection(0);
+      return;
+    }
+    const idx = sections.findIndex((item) => item.id === routeId);
+    if (idx !== -1) applySection(idx);
+  };
+
   const onWheel = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     if (e.deltaY > 0) {
       updateBtn(1);
     } else if (e.deltaY < 0) {
@@ -83,8 +93,11 @@ export function initNavDialer(dialer, button, btnText) {
 
   dialer.addEventListener("wheel", onWheel, { passive: false });
 
-  return () => {
-    dialer.removeEventListener("wheel", onWheel);
-    if (audioCtx) audioCtx.close();
+  return {
+    sync,
+    destroy: () => {
+      dialer.removeEventListener("wheel", onWheel);
+      if (audioCtx) audioCtx.close();
+    }
   };
 }
