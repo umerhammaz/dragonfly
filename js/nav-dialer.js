@@ -1,3 +1,5 @@
+import { CURSOR_NUDGE_EVENT } from "./cursor.js";
+
 export function initNavDialer(dialer, button, btnText, sections, defaultRoute) {
   let currentIndex = 0;
   let isAnimating = false;
@@ -50,6 +52,7 @@ export function initNavDialer(dialer, button, btnText, sections, defaultRoute) {
 
     playTick();
     triggerHaptics();
+    dialer.dispatchEvent(new CustomEvent(CURSOR_NUDGE_EVENT, { bubbles: true, detail: direction }));
     
     button.classList.add("is-squished");
     setTimeout(() => button.classList.remove("is-squished"), 150);

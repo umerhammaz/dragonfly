@@ -1,3 +1,5 @@
+import { CURSOR_NUDGE_EVENT } from "./cursor.js";
+
 const LOGO_BASE = "./LLM-Chat-Logos/SVG/";
 const CYCLE_INTERVAL_MS = 2200;
 const EXIT_CLEANUP_MS = 340;
@@ -198,7 +200,9 @@ export function mount(stage) {
     if (now - lastWheelAt < WHEEL_COOLDOWN_MS) return;
     if (e.deltaY === 0) return;
     lastWheelAt = now;
-    step(e.deltaY > 0 ? 1 : -1, true);
+    const direction = e.deltaY > 0 ? 1 : -1;
+    step(direction, true);
+    pill.dispatchEvent(new CustomEvent(CURSOR_NUDGE_EVENT, { bubbles: true, detail: direction }));
   };
 
   const onPointerEnter = (e) => {

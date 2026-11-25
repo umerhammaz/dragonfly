@@ -240,19 +240,60 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
-  margin-left: -7px;
-  margin-top: -7px;
-  border-radius: 50%;
-  background: #ffffff;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  margin-top: -3px;
   mix-blend-mode: difference;
   pointer-events: none;
   z-index: 30;
   will-change: transform;
-  transition: opacity 0.15s ease;
+  transition: opacity 0.18s ease;
 }
 
+.app-cursor__core {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #ffffff;
+  will-change: transform;
+}
+
+.app-cursor__ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid #ffffff;
+  border-radius: 999px;
+  opacity: 0.85;
+  will-change: transform;
+  transition: width 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    height 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.16s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.app-cursor[data-mode="interactive"] .app-cursor__ring {
+  width: 20px;
+  height: 20px;
+  opacity: 1;
+}
+
+.app-cursor[data-mode="dial"] .app-cursor__ring {
+  width: 20px;
+  height: 38px;
+  opacity: 1;
+}
+
+.app-cursor[data-mode="disabled"] .app-cursor__ring {
+  width: 24px;
+  height: 24px;
+}
+
+.app-cursor.is-idle,
 .app-cursor.is-hidden {
   opacity: 0;
 }
@@ -263,8 +304,16 @@ body {
 
 .app-cursor.is-solid {
   mix-blend-mode: normal;
+}
+
+.app-cursor.is-solid .app-cursor__core {
   background: #000000;
   box-shadow: 0 0 0 1.5px #ffffff;
+}
+
+.app-cursor.is-solid .app-cursor__ring {
+  border-color: #000000;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -388,7 +437,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .screen-stage {
+  .screen-stage,
+  .app-cursor,
+  .app-cursor__ring {
     transition: none;
   }
 }
