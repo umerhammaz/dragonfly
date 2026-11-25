@@ -10,12 +10,7 @@ export const NAV_SECTIONS = [
 
 const SCREENS = {
   screen1: { file: "./screens/screen1.html", title: "ZeroCommit" },
-  screen2: {
-    file: "./screens/screen2.html",
-    css: "./css/screen2.css",
-    module: "./screen2.js",
-    title: "ZeroCommit — Get Started"
-  }
+  screen2: { file: "./screens/screen2.html", title: "ZeroCommit — Get Started" }
 };
 
 const ROUTE_ALIASES = {
