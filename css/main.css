@@ -13,7 +13,7 @@ body {
 }
 
 body {
-  background-color: var(--bg-canvas, #ffffff);
+  background-color: var(--bg-outside, #ffffff);
   font-family: var(--font-geist);
   padding: 16px;
   display: flex;
@@ -26,7 +26,7 @@ body {
   flex: 1;
   min-height: 0;
   background: var(--bg-canvas, #ffffff);
-  border: 2.5px solid var(--border-card, #000000);
+  border: 2.5px solid var(--border-frame, #000000);
   border-radius: 8px;
   position: relative;
   overflow: hidden;
@@ -168,21 +168,21 @@ body {
   justify-content: space-between;
   width: 18px;
   height: 36px;
-  border: 1.5px solid #d1d5db;
+  border: 1.5px solid var(--btn-border, #d1d5db);
   border-radius: 10px;
   padding: 4px 0;
-  background: #ffffff;
+  background: var(--bg-canvas, #ffffff);
   transition: border-color 0.2s ease;
 }
 
 .nav-dialer:hover .nav-dialer__track {
-  border-color: #000000;
+  border-color: var(--text-main, #000000);
 }
 
 .nav-dialer__dot {
   width: 6px;
   height: 6px;
-  background-color: #000000;
+  background-color: var(--text-main, #000000);
   border-radius: 50%;
   transition: transform 0.15s ease;
 }
@@ -197,11 +197,11 @@ body {
 }
 
 .nav-dialer__chevron.top {
-  border-bottom: 4px solid #000000;
+  border-bottom: 4px solid var(--text-main, #000000);
 }
 
 .nav-dialer__chevron.bottom {
-  border-top: 4px solid #000000;
+  border-top: 4px solid var(--text-main, #000000);
 }
 
 .nav-dialer:hover .nav-dialer__chevron {
@@ -371,7 +371,7 @@ body {
   font-family: var(--font-geist, sans-serif);
   font-size: clamp(64px, 11.8vw, 210px);
   font-weight: 700;
-  background: linear-gradient(312deg, #fff, #d8d8d8 10%, #1b1b1b, #000000);
+  background: linear-gradient(312deg, #0d0d0d, #1b1b1b 10%, #d8d8d8, #ffffff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -427,13 +427,13 @@ body {
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--bg-canvas, #ffffff);
   transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .screen-link:hover {
   background: var(--text-main, #000000);
-  color: #ffffff;
+  color: var(--bg-canvas, #ffffff);
 }
 
 @media (prefers-reduced-motion: reduce) {

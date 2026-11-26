@@ -21,4 +21,19 @@
   --border-card: #000000;
   --badge-bg: #0d0d0d;
   --btn-border: #e5e7eb;
+  --bg-outside: #ffffff;
+  --border-frame: #000000;
+  --pill-surface: #ffffff;
+  --dot-color: 0, 0, 0;
+}
+
+.app-frame {
+  --bg-canvas: #0d0d0d;
+  --text-main: #f5f5f5;
+  --text-muted: #8b949e;
+  --border-card: #e5e7eb;
+  --badge-bg: #1f1f1f;
+  --btn-border: #3a3a3a;
+  --pill-surface: #1a1a1a;
+  --dot-color: 255, 255, 255;
 }

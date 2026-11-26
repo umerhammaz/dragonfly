@@ -13,6 +13,7 @@ export function initDotLens(canvas, container) {
   let height = 0;
   let dpr = 1;
   let gridPoints = [];
+  let dotColor = "0, 0, 0";
 
   const buildGrid = () => {
     gridPoints = [];
@@ -30,6 +31,7 @@ export function initDotLens(canvas, container) {
     canvas.width = Math.floor(width * dpr);
     canvas.height = Math.floor(height * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    dotColor = getComputedStyle(container).getPropertyValue("--dot-color").trim() || "0, 0, 0";
     buildGrid();
   };
 
@@ -89,12 +91,12 @@ export function initDotLens(canvas, container) {
       });
     }
 
-    ctx.fillStyle = "rgba(0, 0, 0, 0.08)";
+    ctx.fillStyle = `rgba(${dotColor}, 0.08)`;
     ctx.fill();
 
     for (let i = 0; i < perturbed.length; i++) {
       const p = perturbed[i];
-      ctx.fillStyle = `rgba(0, 0, 0, ${p.alpha})`;
+      ctx.fillStyle = `rgba(${dotColor}, ${p.alpha})`;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
       ctx.fill();
