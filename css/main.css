@@ -23,6 +23,9 @@ body {
 .app-frame {
   width: 100%;
   height: 100%;
+  max-width: var(--frame-max-width, 100%);
+  max-height: var(--frame-max-height, 100%);
+  margin: 0 auto;
   flex: 1;
   min-height: 0;
   background: var(--bg-canvas, #ffffff);
@@ -450,7 +453,7 @@ body {
 @media (max-width: 768px) {
   :root {
     --frame-padding-y: 12px;
-    --frame-padding-x: 12px;
+    --frame-padding-x: 0px;
   }
 
   .app-header {

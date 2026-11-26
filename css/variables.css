@@ -26,8 +26,10 @@
   --pill-surface: #ffffff;
   --dot-color: 0, 0, 0;
   --frame-padding-y: 16px;
-  --frame-padding-x: 16px;
+  --frame-padding-x: 0px;
   --frame-border-width: 2.5px;
+  --frame-max-width: 100%;
+  --frame-max-height: 100%;
 }
 
 .app-frame {
