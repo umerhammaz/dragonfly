@@ -15,7 +15,7 @@ body {
 body {
   background-color: var(--bg-outside, #ffffff);
   font-family: var(--font-geist);
-  padding: var(--frame-inset);
+  padding: 16px;
   display: flex;
   flex-direction: column;
 }
@@ -26,11 +26,8 @@ body {
   flex: 1;
   min-height: 0;
   background: var(--bg-canvas, #ffffff);
-  border-top: var(--frame-border-width) solid var(--border-frame, #000000);
-  border-bottom: var(--frame-border-width) solid var(--border-frame, #000000);
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
+  border: 2.5px solid var(--border-frame, #000000);
+  border-radius: 8px;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -448,6 +445,10 @@ body {
 }
 
 @media (max-width: 768px) {
+  body {
+    padding: 12px;
+  }
+
   .app-header {
     gap: 12px;
     padding: 28px 20px 0 20px;
