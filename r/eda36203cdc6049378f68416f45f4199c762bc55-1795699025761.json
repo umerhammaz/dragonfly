@@ -1,0 +1,66 @@
+{
+  "v": 2,
+  "id": "zc_mwxku3xi_aar8",
+  "sid": "s_mwxicx3k_y4ft",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795699025761,
+  "sha": "eda36203cdc6049378f68416f45f4199c762bc55",
+  "branch": "main",
+  "delivery": "restore",
+  "msgSubj": "Zerocommit.dev — Restore to dc8378f",
+  "msgHash": "5b7baaedca3a0fd0",
+  "files": [
+    [
+      "css/main.css",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "css/variables.css",
+      "m",
+      "man",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 2,
+    "add": 0,
+    "mod": 2,
+    "del": 0,
+    "src": {
+      "man": 2
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 6716,
+  "restore": {
+    "rid": "rst_mwxku3xc_ii98",
+    "fromSha": "b7bfe56eee9c4f43eb3e5b9d910b82b7c4a56d80",
+    "fromTree": "54b187c62e2ce57d0c5e7648aa8e71c0f416b73d",
+    "toSha": "dc8378f6790060acb1719c8fe5e79ae489547904",
+    "toTree": "dc801d2b47fdb87ba07e872bc3adf26f31d32cc9",
+    "backup": "backup/main-20261126-131656-b7bfe56",
+    "isUndo": false,
+    "undoesId": ""
+  },
+  "hash": "bbee68a075059c50"
+}
