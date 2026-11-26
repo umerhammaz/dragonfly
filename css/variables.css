@@ -25,6 +25,9 @@
   --border-frame: #000000;
   --pill-surface: #ffffff;
   --dot-color: 0, 0, 0;
+  --frame-padding-y: 16px;
+  --frame-padding-x: 16px;
+  --frame-border-width: 2.5px;
 }
 
 .app-frame {
