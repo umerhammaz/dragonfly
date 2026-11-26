@@ -1,0 +1,78 @@
+{
+  "v": 2,
+  "id": "zc_mwxk7k90_p0j2",
+  "sid": "s_mwxicx3k_y4ft",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795697973767,
+  "sha": "6f1dc32f519cb6ff35c6256c90cad8498d4dc3ed",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 5 file(s) across 1 prompt turn(s)",
+  "msgHash": "5dcea03305ee04ed",
+  "files": [
+    [
+      "zerocommit_white.svg",
+      "a",
+      "man",
+      1,
+      0
+    ],
+    [
+      "zerocommit.svg",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "css/variables.css",
+      "m",
+      "ai",
+      1,
+      0
+    ],
+    [
+      "css/main.css",
+      "m",
+      "ai",
+      1,
+      0
+    ],
+    [
+      "components/hero-card/hero-card.css",
+      "m",
+      "ai",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 5,
+    "add": 1,
+    "mod": 4,
+    "del": 0,
+    "src": {
+      "man": 2,
+      "ai": 3
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 1,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 8309,
+  "hash": "46fdb940be377b53"
+}
