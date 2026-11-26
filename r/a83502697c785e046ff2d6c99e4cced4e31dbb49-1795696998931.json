@@ -1,0 +1,66 @@
+{
+  "v": 2,
+  "id": "zc_mwxjmo0n_nwcw",
+  "sid": "s_mwxicx3k_y4ft",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795696998931,
+  "sha": "a83502697c785e046ff2d6c99e4cced4e31dbb49",
+  "branch": "main",
+  "delivery": "restore",
+  "msgSubj": "Zerocommit.dev — Restore to b17aef3",
+  "msgHash": "11b7c121e9beedfc",
+  "files": [
+    [
+      "css/main.css",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "css/variables.css",
+      "m",
+      "man",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 2,
+    "add": 0,
+    "mod": 2,
+    "del": 0,
+    "src": {
+      "man": 2
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 4230,
+  "restore": {
+    "rid": "rst_mwxjmo0i_neni",
+    "fromSha": "11d0c43f9d0a93bd3d0111cace90f2cd41312bfe",
+    "fromTree": "edc5471c86a74b807106f23cce2c020ea97c61e4",
+    "toSha": "b17aef3e63418866631dcfa6dbd4419e6924bb56",
+    "toTree": "572145d1874d453c10dd78ed86400a8b702ca562",
+    "backup": "backup/main-20261126-124312-11d0c43",
+    "isUndo": false,
+    "undoesId": ""
+  },
+  "hash": "9d01c5f286dbef00"
+}
