@@ -1,9 +1,11 @@
-/* Screen 1 video slot. Every knob for the video lives here and nowhere else. */
+/* Screen 1 video slot. Every number lives here: right click the video, inspect
+   <section class="screen--video">, type a new value, see it change live. */
 .screen--video {
-  /* size: raise the middle number for a bigger video, lower it for a smaller one */
-  --media-h: clamp(320px, 70vh, 860px);
-  /* shape of the slot; match the clip, or set --media-fit to contain */
-  --media-ratio: 1 / 1;
+  /* how much of the free space above the title the video takes:
+     1 = the largest it fits without cropping, 0.5 = half, 1.4 = bigger (crops top and bottom) */
+  --media-size: 1;
+  /* shape of the slot; 1 = square, 1.7778 = wide, 0.5625 = tall */
+  --media-ratio: 1;
   /* corners; 0 for a hard rectangle */
   --media-radius: 12px;
   /* placement: --media-nudge up (negative) / down (positive), --media-shift left / right */
@@ -13,7 +15,7 @@
   --media-fit: cover;
   /* where the picture sits inside the slot when it is cropped: center | top | left bottom */
   --media-position: center;
-  /* zoom the picture inside the slot (1 = untouched) */
+  /* zoom the picture inside the slot; 1 = untouched */
   --media-zoom: 1;
   /* 0 to 1 */
   --media-opacity: 1;
@@ -21,31 +23,31 @@
   --media-blend: normal;
   /* any filter chain, e.g. grayscale(1) contrast(1.1) */
   --media-filter: none;
-  /* air kept between the video and the title under it */
-  --media-gap: 24px;
-  /* panel shown before the first frame decodes, and if the file is missing */
+  /* air kept between the video edges and the title under it */
+  --media-gap: 0px;
+  /* the panel behind the video, seen before the first frame and if the file is missing */
   --media-surface: #1a1a1a;
 }
 
 .hero-media {
+  position: relative;
   flex: 1 1 0;
   min-height: 0;
-  padding-block: var(--media-gap);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   pointer-events: none;
 }
 
+/* absolute so a --media-size above 1 grows past the free space instead of pushing the title down */
 .hero-media__frame {
-  height: var(--media-h);
-  max-height: 100%;
-  max-width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: calc((100% - 2 * var(--media-gap)) * var(--media-size));
   aspect-ratio: var(--media-ratio);
   border-radius: var(--media-radius);
   background: var(--media-surface);
   overflow: hidden;
-  transform: translate(var(--media-shift), var(--media-nudge));
+  transform: translate(-50%, -50%) translate(var(--media-shift), var(--media-nudge));
 }
 
 .hero-media__video {
@@ -63,9 +65,6 @@
 
 @media (max-width: 768px) {
   .screen--video {
-    /* phones: still big, just not taller than the title can breathe under */
-    --media-h: clamp(260px, 50vh, 620px);
-    --media-gap: 16px;
     --media-radius: 8px;
   }
 }
