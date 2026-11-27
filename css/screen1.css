@@ -1,0 +1,90 @@
+.screen--hero {
+  height: 100%;
+  justify-content: space-between;
+  position: relative;
+}
+
+.screen--hero .typography-group {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+}
+
+.hero-media {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 120px;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  container-type: size;
+  margin-bottom: -16px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+}
+
+.hero-media.is-ready {
+  opacity: 1;
+}
+
+.hero-media__frame {
+  position: relative;
+  width: min(100%, 760px);
+  width: min(100cqw, 760px, calc(100cqh * var(--media-ratio, 1)));
+  aspect-ratio: var(--media-ratio, 1);
+  /* Lighten + soft perimeter feather removes YUV color-shift seams on #0d0d0d */
+  mix-blend-mode: lighten;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 10%, #000 90%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+}
+
+.hero-media__video,
+.hero-media__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
+
+.hero-media__canvas {
+  opacity: 0;
+}
+
+.hero-media.is-canvas .hero-media__video {
+  opacity: 0;
+}
+
+.hero-media.is-canvas .hero-media__canvas {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-media {
+    margin-bottom: -8px;
+  }
+
+  .hero-media__frame {
+    width: min(100%, 420px);
+    width: min(100cqw, 420px, calc(100cqh * var(--media-ratio, 1)));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-media {
+    transition: none;
+  }
+}
