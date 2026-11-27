@@ -1,0 +1,80 @@
+{
+  "v": 2,
+  "id": "zc_mwz6npxs_8qpm",
+  "sid": "s_mwz28py1_vnwy",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795796145418,
+  "sha": "2767a11001c0966a013870d8ee9b0225f2b0c67b",
+  "branch": "main",
+  "delivery": "restore",
+  "msgSubj": "Zerocommit.dev — Restore to 9d2fb1b",
+  "msgHash": "718581544b0bbef3",
+  "files": [
+    [
+      "css/screen1.css",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "js/router.js",
+      "m",
+      "man",
+      1,
+      0
+    ],
+    [
+      "js/screen1.js",
+      "d",
+      "man",
+      1,
+      0
+    ],
+    [
+      "screens/screen1.html",
+      "m",
+      "man",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 4,
+    "add": 0,
+    "mod": 2,
+    "del": 2,
+    "src": {
+      "man": 4
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 0,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 4017,
+  "restore": {
+    "rid": "rst_mwz6npxk_gnsf",
+    "fromSha": "1b26ba9cb0721e90c98dceb90d3fd0cecdbb69b0",
+    "fromTree": "b11f656a206085eb20dcb0881648811bdc900f62",
+    "toSha": "9d2fb1be29cdf79aa9a990b956909202821c19ef",
+    "toTree": "cb7bbbddcb89e46c3b7e5df03f3352757e4c89c5",
+    "backup": "backup/main-20261127-161538-1b26ba9",
+    "isUndo": false,
+    "undoesId": ""
+  },
+  "hash": "6f103b2f531449ed"
+}
