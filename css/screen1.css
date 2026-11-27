@@ -4,6 +4,7 @@
    centered behind the title. */
 .screen--video {
   position: relative;
+  height: 100%;
   padding: 0; /* Let the video bleed to the edges of the screen stage */
   padding: 0; /* Let the video bleed to the edges of the screen stage */
   /* cover fills the background and crops; contain letterboxes the picture */
@@ -32,6 +33,8 @@
 .hero-media {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
@@ -40,6 +43,8 @@
 .hero-media__frame {
   position: absolute;
   inset: 0;
+  width: 100%;
+  height: 100%;
   background: var(--media-surface);
   overflow: hidden;
 }
