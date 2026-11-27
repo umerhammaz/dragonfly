@@ -1,17 +1,10 @@
 /* Screen 1 video slot. Every number lives here: right click the video, inspect
-   <section class="screen--video">, type a new value, see it change live. */
+   <section class="screen--video">, type a new value, see it change live.
+   The video is the section background: it fills the card edge to edge and is
+   centered behind the title. */
 .screen--video {
-  /* how much of the free space above the title the video takes:
-     1 = the largest it fits without cropping, 0.5 = half, 1.4 = bigger (crops top and bottom) */
-  --media-size: 1;
-  /* shape of the slot; 1 = square, 1.7778 = wide, 0.5625 = tall */
-  --media-ratio: 1;
-  /* corners; 0 for a hard rectangle */
-  --media-radius: 12px;
-  /* placement: --media-nudge up (negative) / down (positive), --media-shift left / right */
-  --media-nudge: 0px;
-  --media-shift: 0px;
-  /* cover fills the slot and crops; contain shows the whole picture with spare room */
+  position: relative;
+  /* cover fills the background and crops; contain letterboxes the picture */
   --media-fit: cover;
   /* where the picture sits inside the slot when it is cropped: center | top | left bottom */
   --media-position: center;
@@ -23,31 +16,29 @@
   --media-blend: normal;
   /* any filter chain, e.g. grayscale(1) contrast(1.1) */
   --media-filter: none;
-  /* air kept between the video edges and the title under it */
-  --media-gap: 0px;
   /* the panel behind the video, seen before the first frame and if the file is missing */
   --media-surface: #1a1a1a;
 }
 
-.hero-media {
+/* Typography stays above the background video. */
+.screen--video > .typography-group {
   position: relative;
-  flex: 1 1 0;
-  min-height: 0;
+  z-index: 1;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
 
-/* absolute so a --media-size above 1 grows past the free space instead of pushing the title down */
 .hero-media__frame {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  height: calc((100% - 2 * var(--media-gap)) * var(--media-size));
-  aspect-ratio: var(--media-ratio);
-  border-radius: var(--media-radius);
+  inset: 0;
   background: var(--media-surface);
   overflow: hidden;
-  transform: translate(-50%, -50%) translate(var(--media-shift), var(--media-nudge));
 }
 
 .hero-media__video {
@@ -61,10 +52,4 @@
   filter: var(--media-filter);
   transform: scale(var(--media-zoom));
   pointer-events: none;
-}
-
-@media (max-width: 768px) {
-  .screen--video {
-    --media-radius: 8px;
-  }
 }
