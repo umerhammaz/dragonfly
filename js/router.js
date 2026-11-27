@@ -9,7 +9,7 @@ export const NAV_SECTIONS = [
 ];
 
 const SCREENS = {
-  screen1: { file: "./screens/screen1.html", module: "./js/screen1.js", title: "ZeroCommit" },
+  screen1: { file: "./screens/screen1.html", title: "ZeroCommit" },
   screen2: {
     file: "./screens/screen2.html",
     css: "./css/screen2.css",
