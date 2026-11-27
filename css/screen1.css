@@ -5,6 +5,7 @@
 .screen--video {
   position: relative;
   padding: 0; /* Let the video bleed to the edges of the screen stage */
+  padding: 0; /* Let the video bleed to the edges of the screen stage */
   /* cover fills the background and crops; contain letterboxes the picture */
   --media-fit: cover;
   /* where the picture sits inside the slot when it is cropped: center | top | left bottom */
@@ -54,6 +55,12 @@
   filter: var(--media-filter);
   transform: scale(var(--media-zoom));
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .screen--video > .typography-group {
+    padding: 16px 20px 28px 20px;
+  }
 }
 
 @media (max-width: 768px) {
