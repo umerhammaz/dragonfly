@@ -1,0 +1,49 @@
+{
+  "v": 2,
+  "id": "zc_mwz28pyf_k1xd",
+  "sid": "s_mwz28py1_vnwy",
+  "repo": "umerhammaz/dragonfly",
+  "ts": 1795788726840,
+  "sha": "3078cce2f1d6762cde74c6cf4f256489525edde4",
+  "branch": "main",
+  "delivery": "direct",
+  "msgSubj": "feat(sync): Synchronized 1 file(s) across 1 prompt turn(s)",
+  "msgHash": "bae5e83705ee04ed",
+  "files": [
+    [
+      "assests/screen1.mp4",
+      "a",
+      "man",
+      1,
+      0
+    ]
+  ],
+  "sum": {
+    "files": 1,
+    "add": 1,
+    "mod": 0,
+    "del": 0,
+    "src": {
+      "man": 1
+    }
+  },
+  "warn": {
+    "quarantine": 0,
+    "halluc": 0,
+    "secret": 0,
+    "runtime": 0,
+    "override": false
+  },
+  "safety": {
+    "canary": "8/8",
+    "vault": "persistent"
+  },
+  "base": {
+    "gen": 3,
+    "anc": "T",
+    "race": 0
+  },
+  "verify": 1,
+  "ms": 9637,
+  "hash": "493bb4e190ee43d0"
+}
