@@ -490,3 +490,43 @@ body {
     font-size: clamp(22px, 5.5vw, 36px);
   }
 }
+
+/* screen1 centered premium ping-pong video */
+.screen1-stage {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.screen1-video-frame {
+  width: min(100%, 960px);
+  max-height: 55vh;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000000;
+  border: 1px solid var(--border-card, #e5e7eb);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.screen1-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .screen1-video-frame {
+    width: 92%;
+    max-height: 45vh;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+  }
+}
