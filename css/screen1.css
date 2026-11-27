@@ -4,6 +4,7 @@
    centered behind the title. */
 .screen--video {
   position: relative;
+  padding: 0; /* Let the video bleed to the edges of the screen stage */
   /* cover fills the background and crops; contain letterboxes the picture */
   --media-fit: cover;
   /* where the picture sits inside the slot when it is cropped: center | top | left bottom */
@@ -24,6 +25,7 @@
 .screen--video > .typography-group {
   position: relative;
   z-index: 1;
+  padding: 24px 48px 32px 48px; /* Restore the text insets removed from .screen--video */
 }
 
 .hero-media {
@@ -52,4 +54,10 @@
   filter: var(--media-filter);
   transform: scale(var(--media-zoom));
   pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .screen--video > .typography-group {
+    padding: 16px 20px 28px 20px;
+  }
 }
