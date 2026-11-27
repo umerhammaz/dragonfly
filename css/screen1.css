@@ -1,9 +1,9 @@
 /* Screen 1 video slot. Every knob for the video lives here and nowhere else. */
 .screen--video {
   /* size: raise the middle number for a bigger video, lower it for a smaller one */
-  --media-h: clamp(260px, 58vh, 660px);
+  --media-h: clamp(320px, 70vh, 860px);
   /* shape of the slot; match the clip, or set --media-fit to contain */
-  --media-ratio: 16 / 9;
+  --media-ratio: 1 / 1;
   /* corners; 0 for a hard rectangle */
   --media-radius: 12px;
   /* placement: --media-nudge up (negative) / down (positive), --media-shift left / right */
@@ -64,7 +64,7 @@
 @media (max-width: 768px) {
   .screen--video {
     /* phones: still big, just not taller than the title can breathe under */
-    --media-h: clamp(200px, 38vh, 460px);
+    --media-h: clamp(260px, 50vh, 620px);
     --media-gap: 16px;
     --media-radius: 8px;
   }
